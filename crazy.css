@@ -1,18 +1,1 @@
- div.red{width:200px;
-    height: 500px;
-    overflow-x: hidden;
-    background-color: aqua;
-    margin: 10px auto;
- }
- div p a{
-   color: red;
-   transition: .05s;
-   text-decoration:none;
- }
- a::after:hover{
-   content: hello;
-    
- }
- hr{
- margin:    90px;
- }
+ 
