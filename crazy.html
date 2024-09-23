@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Student Card</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    section {
+      margin-top: 100px;
+    }
+
+    .full {
+      height: 600px;
+      width: 500px;
+      background-color: blue;
+      margin: 0 auto;
+      padding: 60px;
+
+    }
+
+    .inside {
+      background-color: white;
+      padding: 10px;
+      height: 460px;
+      width: 260px;
+      margin: auto;
+  
+      text-align: center;
+      border-radius: 10px 10px 10px 10px;
+    }
+
+    .img {
+      height: 0px;
+      width: 50px;
+      margin: 5px auto;
+    }
+
+    .collage-name {
+      font-size: large;
+      font-weight: 700;
+      margin-top: 80px;
+    }
+
+    .img-section {
+      display: flex;
+      margin-top: -10px;
+      margin-left: 20px;
+      align-items: center;
+      justify-items: center;
+
+
+    }
+
+    .img-text {
+
+      height: 100%;
+      color: blue;
+      font-weight: 600;
+
+      rotate: -90deg;
+
+
+    }
+
+    .my-img {
+      position: relative;
+      left: -30px;
+      top: -20px;
+    }
+
+    .my-name {
+      font-weight: 700;
+      margin-top: -15px;
+    }
+
+    .details {
+      font-weight: 500;
+      text-align: left;
+      margin-left: 20px;
+    }
+
+    .sin-img {
+      justify-content: center;
+      display: flex;
+    }
+
+    .principal {
+      font-weight: 700;
+    }
+
+    /* span styles */
+    .roll {
+      margin-left: 25px;
+    }
+
+    .sesion {
+      margin-left: 38px;
+    }
+
+    .level {
+      margin-left: 10px;
+    }
+
+    .valid {
+      margin-left: 40px;
+    }
+
+    .again-full {
+      position: relative;
+    }
+
+    .back-card::before {
+      padding: 10px;
+      height: 460px;
+      width: 260px;
+      margin: auto;
+      position: absolute;
+      border-radius: 50px 50px 0px 0px;
+      content: " ";
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-image: url("Screenshot_3.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.2;
+      z-index: 1;
+
+    }
+
+    .code{
+      font-weight: 700;
+      font-size: x-large;
+      margin-top: 10px;
+      color: #076cf9;
+      
+    }
+    .code::after{
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 4px;
+      background-color: #02db2d;
+      margin-left: -100px;
+      border-radius: 40px;
+    }
+    .subjects{
+      font-weight: 500;
+      text-align: left;
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+    .found{
+      font-weight: 900;
+      font-size: large;
+      margin-top: 30px;
+      color: #ff0000;
+    }
+    .found::after{
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 2px;
+      background-color: #010101;
+      margin-left: -120px;
+
+    }
+    .number{
+      font-weight: 500;
+      color: #de0505;
+    }
+    .address{
+      font-weight: 600;
+    }
+
+    .web{
+      font-weight: 600;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- front part -->
+  <section>
+    <div class=" full">
+      <div class="inside">
+        <div class="img">
+          <img src="Screenshot_3.png" alt="">
+        </div>
+        <div class="collage-name">
+          <h1>NATIONAL UNIVERCITY</h1>
+        </div>
+        <div class=" img-section">
+          <div class=" img-text">BANGLA DEPARMENT </div>
+          <div class="my-img"><img src="student.png" alt=""></div>
+        </div>
+        <div class="my-name">
+          <h1>MD Kayesur Rahman</h1>
+        </div>
+        <div class="details">
+          <h4>Class Roll <span class="roll">: 76</span></h4>
+          <h4>Seasion <span class="sesion">: 2024-2025</span></h4>
+          <h4>Study Level <span class="level">: Honours</span> </h4>
+          <h4>Blood Group <span class="blood">: B+</span></h4>
+          <h4>Validity <span class="valid">: 2028</span></h4>
+        </div>
+        <div class="sin-img">
+          <img src="sing.png" alt="">
+        </div>
+        <div class="principal">
+          <h1> Principal's signature</h1>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- back part -->
+  <section>
+    <div class="full again-full">
+      <div class="inside ">
+        <div class="back-card">
+          <div class="code">
+            <h1>Subject Code </h1>
+          </div>
+          <div class="subjects">
+            <h1>211501 History of Bangladesh</h1>
+            <h1>211001 Culture of Bangladesh</h1>
+            <h1>211003 Langua of Bangladesh</h1>
+            <h1>211005 Bangla Poetry</h1>
+            <h1>211007 Bangla Novel</h1>
+            <h1>211909 Political Theory</h1>
+            <h1>212111 Social Work</h1>
+            <h1>212009 Introducing Sociology</h1>
+
+          </div>
+          <div class="found">
+            <h1>If Found, Please Return To</h1>
+            
+          </div>
+          <div class="address">
+            <h1>Gazipur, Dhaka</h1>
+            <h1>Phone   <span class="number">   :  +88 01926360430</span></h1>
+          </div>
+          <div class="web">
+            <h1>nationalunivercity@gmail.com</h1>
+            <h1>www.nationaleunivercity.edu.bd</h1>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+</body>
+
+</html>
