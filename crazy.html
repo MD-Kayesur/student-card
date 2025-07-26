@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEO Process Diagram</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .circle {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      position: relative;
+      background: conic-gradient(
+        #fff 0deg 45deg,
+        #ffc107 45deg 90deg,
+        #ff9800 90deg 135deg,
+        #ff5722 135deg 180deg,
+        #f44336 180deg 225deg,
+        #e91e63 225deg 270deg,
+        #9c27b0 270deg 315deg,
+        #3f51b5 315deg 360deg
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 8px solid #fff;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+    }
+
+    .center {
+      width: 160px;
+      height: 160px;
+      background: #111;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      border: 5px solid #555;
+    }
+
+    .label {
+      position: absolute;
+      width: 120px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: #000;
+      background: #fff;
+      padding: 4px 6px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
+    .label:nth-child(2)  { top: 5px; left: 50%; transform: translateX(-50%); }
+    .label:nth-child(3)  { top: 30px; right: 20px; }
+    .label:nth-child(4)  { top: 120px; right: -10px; }
+    .label:nth-child(5)  { bottom: 100px; right: 10px; }
+    .label:nth-child(6)  { bottom: 5px; left: 50%; transform: translateX(-50%); }
+    .label:nth-child(7)  { bottom: 100px; left: 10px; }
+    .label:nth-child(8)  { top: 120px; left: -10px; }
+    .label:nth-child(9)  { top: 30px; left: 20px; }
+
+    .phase-label {
+      position: absolute;
+      color: #fff;
+      font-size: 13px;
+      font-weight: bold;
+      text-shadow: 0 0 3px rgba(0,0,0,0.6);
+    }
+
+    .phase1 { top: -30px; left: 50%; transform: translateX(-50%); }
+    .phase2 { right: -150px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+    .phase3 { bottom: -30px; left: 50%; transform: translateX(-50%); }
+
+    .description {
+      margin-top: 40px;
+      max-width: 550px;
+      text-align: center;
+      font-size: 15px;
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      color: #ccc;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="circle">
+    <div class="center">
+      SEO<br />Process
+    </div>
+    <div class="label">Keyword Research</div>
+    <div class="label">Content Strategy</div>
+    <div class="label">Refine Website Architecture</div>
+    <div class="label">On-Page Optimization</div>
+    <div class="label">Off-Page Submissions</div>
+    <div class="label">Monitoring & Reviews</div>
+    <div class="label">Business Analysis</div>
+    <div class="label">Competitor Analysis</div>
+    <div class="phase-label phase1">DISCOVERY PHASE</div>
+    <div class="phase-label phase2">STRATEGY</div>
+    <div class="phase-label phase3">IMPLEMENTATION & MANAGEMENT</div>
+  </div>
+  <div class="description">
+    In the world of SEO, extensive keyword research is the key. Our SEO experts use a
+    data-driven approach to identify the most relevant and high-traffic keywords.
+  </div>
+</body>
+</html>
