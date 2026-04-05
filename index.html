@@ -7,6 +7,7 @@
   <title>Dynamic Student Card Generator</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body {
       background-color: #f3f4f6;
@@ -91,7 +92,7 @@
       border-color: #3b82f6;
     }
 
-    /* Original Card Styles */
+    /* Card Styles */
     .full {
       height: 600px;
       width: 500px;
@@ -143,7 +144,6 @@
       position: relative;
     }
 
-    /* Front specific */
     .img-section {
       display: flex;
       align-items: center;
@@ -226,7 +226,6 @@
       width: 80%;
     }
 
-    /* Back specific */
     .back-content {
       z-index: 2;
       position: relative;
@@ -292,6 +291,27 @@
       color: red;
     }
 
+    .subject-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 30px;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .subject-row input {
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    .remove-btn {
+      color: #ef4444;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .hidden {
       display: none !important;
     }
@@ -300,7 +320,6 @@
 
 <body>
   <div class="container-wrapper">
-    <!-- Editor Section -->
     <div class="editor-container">
       <div class="tabs">
         <div class="tab-btn active" id="tab-front" onclick="switchSide('front')">FRONT SIDE</div>
@@ -308,24 +327,14 @@
       </div>
 
       <div class="form-content">
-        <!-- Front Side Form -->
         <div id="form-front">
-          <div class="input-group">
-            <label>Collage Name</label>
-            <input type="text" id="input-collage" value="MOHASIN COLLAGE">
-          </div>
-          <div class="input-group">
-            <label>Department / Subject</label>
-            <input type="text" id="input-dept" value="BANGLA DEPARTMENT">
-          </div>
-          <div class="input-group">
-            <label>Student Photo</label>
-            <input type="file" id="input-photo">
-          </div>
-          <div class="input-group">
-            <label>Student Name</label>
-            <input type="text" id="input-name" value="MD Kayesur Rahman">
-          </div>
+          <div class="input-group"><label>Collage Name</label><input type="text" id="input-collage"
+              value="MOHASIN COLLAGE"></div>
+          <div class="input-group"><label>Department / Subject</label><input type="text" id="input-dept"
+              value="BANGLA DEPARTMENT"></div>
+          <div class="input-group"><label>Student Photo</label><input type="file" id="input-photo"></div>
+          <div class="input-group"><label>Student Name</label><input type="text" id="input-name"
+              value="MD Kayesur Rahman"></div>
           <div class="grid grid-cols-2 gap-4">
             <div class="input-group"><label>Roll</label><input type="text" id="input-roll" value="176"></div>
             <div class="input-group"><label>Session</label><input type="text" id="input-session" value="2025-2026">
@@ -333,90 +342,72 @@
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div class="input-group"><label>Level</label><input type="text" id="input-level" value="Honours"></div>
-            <div class="input-group">
-              <label>Blood Group</label>
-              <select id="input-blood">
-                <option value="B+" selected>B+</option>
+            <div class="input-group"><label>Blood Group</label><select id="input-blood">
+                <option value="B+">B+</option>
                 <option value="A+">A+</option>
-                <option value="O+">O+</option>
-                <option value="AB+">AB+</option>
-              </select>
-            </div>
+              </select></div>
           </div>
           <div class="input-group"><label>Validity</label><input type="text" id="input-valid" value="2028"></div>
-          <div class="input-group"><label>Principal's Signature</label><input type="file" id="input-sign"></div>
+          <div class="input-group"><label>Signature</label><input type="file" id="input-sign"></div>
         </div>
 
-        <!-- Back Side Form -->
         <div id="form-back" class="hidden">
           <div class="input-group">
-            <label>Subject Codes & Names (One per line)</label>
-            <textarea id="input-subjects" rows="6" placeholder="211501 History of Bangladesh...">211501 History of Bangladesh
-211001 Culture of Bangladesh
-211003 Language of Bangladesh
-211005 Bangla Poetry
-211007 Bangla Novel</textarea>
+            <label>Subject List</label>
+            <div id="subject-inputs-container">
+              <!-- Dynamic subject rows here -->
+            </div>
+            <button onclick="addSubjectRow()"
+              class="w-full py-2 bg-blue-50 text-blue-600 border border-blue-200 rounded-xl text-[10px] font-black uppercase tracking-widest mt-2 hover:bg-blue-100 transition-all">
+              + Add New Subject
+            </button>
           </div>
-          <div class="input-group">
-            <label>Return Address</label>
-            <input type="text" id="input-address" value="Syamnagor, Satkhira">
-          </div>
-          <div class="input-group">
-            <label>Phone Number</label>
-            <input type="text" id="input-phone" value="+88 01926-360430">
-          </div>
-          <div class="input-group">
-            <label>Portal / Email</label>
-            <input type="text" id="input-email" value="mohasincollage@gmail.com">
-          </div>
-          <div class="input-group">
-            <label>Website</label>
-            <input type="text" id="input-web" value="www.mohasin collage.edu.bd">
-          </div>
+          <div class="input-group"><label>Return Address</label><input type="text" id="input-address"
+              value="Syamnagor, Satkhira"></div>
+          <div class="input-group"><label>Phone Number</label><input type="text" id="input-phone"
+              value="+88 01926-360430"></div>
+          <div class="input-group"><label>Portal / Email</label><input type="text" id="input-email"
+              value="mohasincollage@gmail.com"></div>
+          <div class="input-group"><label>Website</label><input type="text" id="input-web"
+              value="www.mohasin collage.edu.bd"></div>
         </div>
 
         <button onclick="window.print()"
-          class="w-full bg-blue-600 text-white font-black py-4 rounded-xl mt-4 hover:bg-blue-700 transition-all shadow-lg shadow-blue-200">
-          PRINT SIDE
-        </button>
+          class="w-full bg-blue-600 text-white font-black py-4 rounded-xl mt-4 hover:bg-blue-700 shadow-lg">PRINT
+          SIDE</button>
       </div>
     </div>
 
-    <!-- Preview Section -->
     <div class="flex flex-col items-center">
       <div class="full">
-        <div class="inside" id="card-body">
-          <!-- Dynamic content will be injected here -->
-        </div>
+        <div class="inside" id="card-body"></div>
       </div>
       <p class="text-gray-400 font-bold text-xs mt-8 uppercase tracking-widest">Live <span id="label-side">Front</span>
         Preview</p>
     </div>
   </div>
 
-  <!-- Templates -->
   <template id="tpl-front">
     <div class="mt-4"><img src="Screenshot_3.png" class="collage-logo-img"></div>
     <div class="collage-name">
-      <h1 id="card-collage">MOHASIN COLLAGE</h1>
+      <h1 id="card-collage"></h1>
     </div>
     <div class="img-section">
-      <div class="img-text" id="card-dept">BANGLA DEPARTMENT</div>
+      <div class="img-text" id="card-dept"></div>
       <div class="my-img-container"><img src="WhatsApp Image 2024-10-18 at 22.53.53_df57dcee.jpg" class="my-img"
           id="card-photo"></div>
     </div>
     <div class="my-name">
-      <h1 id="card-name">MD Kayesur Rahman</h1>
+      <h1 id="card-name"></h1>
     </div>
     <div class="details">
-      <h4>Class Roll <span id="card-roll" style="margin-left: 20px;">: 176</span></h4>
-      <h4>Session <span id="card-session" style="margin-left: 33px;">: 2025-2026</span></h4>
-      <h4>Study Level <span id="card-level" style="margin-left: 17px;">: Honours</span></h4>
-      <h4>Blood Group <span id="card-blood" style="margin-left: 14px;">: B+</span></h4>
-      <h4>Validity <span id="card-valid" style="margin-left: 41px;">: 2028</span></h4>
+      <h4>Class Roll <span id="card-roll"></span></h4>
+      <h4>Session <span id="card-session"></span></h4>
+      <h4>Study Level <span id="card-level"></span></h4>
+      <h4>Blood Group <span id="card-blood"></span></h4>
+      <h4>Validity <span id="card-valid"></span></h4>
     </div>
-    <div class="sin-img-container">
-      <img src="sing.png" class="sin-img" id="card-sign">
+    <div class="sin-img-container"><img src="sing.png" class="sin-img" id="card-sign">
       <div class="principal">Principal's signature</div>
     </div>
   </template>
@@ -427,12 +418,12 @@
       <div class="subjects-list" id="card-subjects"></div>
       <div class="return-section">
         <div class="return-title">If Found, Please Return To</div>
-        <div class="address-text" id="card-address">Syamnagor, Satkhira</div>
+        <div class="address-text" id="card-address"></div>
       </div>
       <div class="contact-info">
-        <div>Phone <span class="phone" id="card-phone">: +88 01926-360430</span></div>
-        <div id="card-email">mohasincollage@gmail.com</div>
-        <div id="card-web">www.mohasin collage.edu.bd</div>
+        <div>Phone <span class="phone" id="card-phone"></span></div>
+        <div id="card-email"></div>
+        <div id="card-web"></div>
       </div>
     </div>
   </template>
@@ -440,48 +431,72 @@
   <script>
     let currentSide = 'front';
     let photos = { front: null, sign: null };
+    let subjects = [
+      { code: "211501", name: "History of Bangladesh" },
+      { code: "211001", name: "Culture of Bangladesh" },
+      { code: "211003", name: "Language of Bangladesh" }
+    ];
 
     function switchSide(side) {
       currentSide = side;
-      document.getElementById('tab-front').classList.toggle('active', side === 'front');
-      document.getElementById('tab-back').classList.toggle('active', side === 'back');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.id === `tab-${side}`));
       document.getElementById('form-front').classList.toggle('hidden', side === 'back');
       document.getElementById('form-back').classList.toggle('hidden', side === 'front');
       document.getElementById('label-side').textContent = side.charAt(0).toUpperCase() + side.slice(1);
+      if (side === 'back') renderSubjectInputs();
+      renderCard();
+    }
 
+    function renderSubjectInputs() {
+      const container = document.getElementById('subject-inputs-container');
+      container.innerHTML = subjects.map((s, i) => `
+                <div class="subject-row">
+                    <input type="text" value="${s.code}" oninput="updateSubject(${i}, 'code', this.value)" placeholder="Code">
+                    <input type="text" value="${s.name}" oninput="updateSubject(${i}, 'name', this.value)" placeholder="Name">
+                    <div class="remove-btn" onclick="removeSubject(${i})"><i class="fas fa-times"></i></div>
+                </div>
+            `).join('');
+    }
+
+    function addSubjectRow() {
+      subjects.push({ code: "", name: "" });
+      renderSubjectInputs();
+      renderCard();
+    }
+
+    function updateSubject(i, field, val) {
+      subjects[i][field] = val;
+      renderCard();
+    }
+
+    function removeSubject(i) {
+      subjects.splice(i, 1);
+      renderSubjectInputs();
       renderCard();
     }
 
     function renderCard() {
       const container = document.getElementById('card-body');
-      const tpl = document.getElementById(currentSide === 'front' ? 'tpl-front' : 'tpl-back').content.cloneNode(true);
       container.innerHTML = '';
-      container.appendChild(tpl);
-
-      if (currentSide === 'front') {
-        updateFront();
-      } else {
-        updateBack();
-      }
+      container.appendChild(document.getElementById(`tpl-${currentSide}`).content.cloneNode(true));
+      currentSide === 'front' ? updateFront() : updateBack();
     }
 
     function updateFront() {
       setT('card-collage', getV('input-collage'));
       setT('card-dept', getV('input-dept'));
       setT('card-name', getV('input-name'));
-      setT('card-roll', ': ' + getV('input-roll'));
-      setT('card-session', ': ' + getV('input-session'));
-      setT('card-level', ': ' + getV('input-level'));
-      setT('card-blood', ': ' + getV('input-blood'));
-      setT('card-valid', ': ' + getV('input-valid'));
+      setT('card-roll', ': ' + getV('input-roll'), 'margin-left: 20px');
+      setT('card-session', ': ' + getV('input-session'), 'margin-left: 33px');
+      setT('card-level', ': ' + getV('input-level'), 'margin-left: 17px');
+      setT('card-blood', ': ' + getV('input-blood'), 'margin-left: 14px');
+      setT('card-valid', ': ' + getV('input-valid'), 'margin-left: 41px');
       if (photos.front) document.getElementById('card-photo').src = photos.front;
       if (photos.sign) document.getElementById('card-sign').src = photos.sign;
     }
 
     function updateBack() {
-      const lines = getV('input-subjects').split('\n');
-      const list = document.getElementById('card-subjects');
-      list.innerHTML = lines.map(l => `<div>${l}</div>`).join('');
+      document.getElementById('card-subjects').innerHTML = subjects.map(s => `<div>${s.code} ${s.name}</div>`).join('');
       setT('card-address', getV('input-address'));
       setT('card-phone', ': ' + getV('input-phone'));
       setT('card-email', getV('input-email'));
@@ -489,22 +504,21 @@
     }
 
     function getV(id) { return document.getElementById(id).value; }
-    function setT(id, val) { document.getElementById(id).textContent = val; }
+    function setT(id, val, style) {
+      const el = document.getElementById(id);
+      el.textContent = val;
+      if (style) el.style = style;
+    }
 
-    // Event listeners for all inputs
     document.addEventListener('input', (e) => {
       if (e.target.id.startsWith('input-')) renderCard();
     });
 
-    // Image Handling
     function handleImg(inputId, key) {
       document.getElementById(inputId).addEventListener('change', function (e) {
         if (this.files && this.files[0]) {
           const reader = new FileReader();
-          reader.onload = (ex) => {
-            photos[key] = ex.target.result;
-            renderCard();
-          };
+          reader.onload = (ex) => { photos[key] = ex.target.result; renderCard(); };
           reader.readAsDataURL(this.files[0]);
         }
       });
@@ -512,8 +526,6 @@
 
     handleImg('input-photo', 'front');
     handleImg('input-sign', 'sign');
-
-    // Init
     switchSide('front');
   </script>
 </body>
