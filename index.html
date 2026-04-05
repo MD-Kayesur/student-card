@@ -9,6 +9,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
+    :root {
+      --p-color: #8b5cf6;
+    }
+
+    /* Default Purple Theme */
     body {
       background-color: #f3f4f6;
       font-family: 'Inter', sans-serif;
@@ -26,7 +31,6 @@
       max-width: 1800px;
       margin: 0 auto;
       align-items: start;
-      transition: opacity 0.4s;
     }
 
     .editor-container {
@@ -48,7 +52,7 @@
       font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 2.5px;
+      letter-spacing: 2px;
       color: #64748b;
       transition: all 0.2s;
       cursor: pointer;
@@ -56,9 +60,9 @@
     }
 
     .tab-btn.active {
-      color: #3b82f6;
+      color: var(--p-color);
       background: white;
-      border-bottom: 3.5px solid #3b82f6;
+      border-bottom: 3.5px solid var(--p-color);
       margin-bottom: -3.5px;
     }
 
@@ -89,12 +93,12 @@
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #3b82f6;
+      color: var(--p-color);
     }
 
     .style-toggle-btn {
-      background: #e0f2fe;
-      color: #0369a1;
+      background: #f3f0ff;
+      color: var(--p-color);
       border: none;
       padding: 4px 12px;
       border-radius: 8px;
@@ -107,12 +111,8 @@
       gap: 5px;
     }
 
-    .style-toggle-btn:hover {
-      background: #bae6fd;
-    }
-
     .style-toggle-btn.active {
-      background: #3b82f6;
+      background: var(--p-color);
       color: white;
     }
 
@@ -125,6 +125,12 @@
       font-weight: 600;
       background: white;
       transition: all 0.2s;
+    }
+
+    .main-input:focus {
+      outline: none;
+      border-color: var(--p-color);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
     }
 
     .style-panel {
@@ -165,88 +171,90 @@
       font-weight: 700;
     }
 
-    /* Card Styles */
+    /* Premium Card Styles (Purple Wave Theme) */
     .full {
-      height: 600px;
-      width: 520px;
-      background-color: blue;
+      height: 620px;
+      width: 440px;
+      background-color: #d1d5db;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25);
-      transform: scale(1);
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 24px;
+      padding: 15px;
+      box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.3);
     }
 
     .inside {
       background-color: white;
-      padding: 10px;
-      height: 480px;
-      width: 280px;
-      text-align: center;
+      height: 580px;
+      width: 400px;
       border-radius: 12px;
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid #9ca3af;
     }
 
-    .back-card::before {
-      content: "";
+    /* Wavy Backgrounds */
+    .wave-top {
       position: absolute;
-      inset: 0;
-      background-image: url("Screenshot_3.png");
-      background-repeat: no-repeat;
-      background-size: cover;
-      opacity: 0.2;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, var(--p-color) 0%, #4c1d95 100%);
       z-index: 1;
+      border-radius: 0 0 50% 50% / 0 0 20% 20%;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     }
 
-    .c-el {
-      z-index: 2;
-      position: relative;
-      display: block;
-      box-sizing: border-box;
+    .wave-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(135deg, #4c1d95 0%, var(--p-color) 100%);
+      z-index: 1;
+      clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
     }
 
     .collage-logo-img {
-      height: 40px;
-      margin: 0 auto;
-      z-index: 2;
+      height: 45px;
+      margin: 25px auto 10px;
+      z-index: 10;
       position: relative;
+      filter: brightness(0) invert(1);
+    }
+
+    .collage-name {
+      color: white;
+      z-index: 10;
+      position: relative;
+      margin-top: 5px;
     }
 
     .img-section {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 220px;
-      margin-top: 10px;
-      padding: 0 10px;
-      gap: 15px;
-      z-index: 2;
+      margin-top: 20px;
+      z-index: 10;
       position: relative;
     }
 
-    .img-text {
-      color: blue;
-      white-space: nowrap;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-
     .my-img-container {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 6px solid white;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      background: #e5e7eb;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      border: 2px solid blue;
     }
 
     .my-img {
@@ -255,64 +263,74 @@
       object-fit: cover;
     }
 
+    .text-content {
+      flex: 1;
+      z-index: 10;
+      position: relative;
+      padding: 20px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .details-grid {
+      width: 100%;
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border-top: 1.5px solid #f1f5f9;
+      padding-top: 15px;
+    }
+
     .sin-img-container {
       margin-top: auto;
-      padding-bottom: 20px;
+      padding-bottom: 25px;
+      z-index: 10;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
     .sin-img {
-      height: 25px;
+      height: 35px;
       object-fit: contain;
     }
 
     .principal {
-      margin-top: 5px;
-      border-top: 1px solid #000;
-      padding-top: 4px;
-      width: 80%;
-      display: inline-block;
-      font-size: 8px;
+      color: white;
+      font-size: 9px;
       font-weight: 800;
+      text-transform: uppercase;
+      margin-top: 5px;
+      letter-spacing: 1px;
     }
 
     .back-content {
-      z-index: 2;
+      z-index: 10;
       position: relative;
-      height: 100%;
-      padding: 10px;
+      padding: 20px 30px;
       display: flex;
       flex-direction: column;
+      height: 100%;
     }
 
-    .back-title::after {
-      content: "";
-      display: block;
-      width: 50%;
-      height: 2px;
-      background: #02db2d;
-      margin: 4px auto;
-      border-radius: 10px;
+    .qr-code {
+      width: 80px;
+      height: 80px;
+      background: white;
+      margin: 15px auto;
+      border: 2px solid #f1f5f9;
+      padding: 5px;
     }
 
-    .subject-row {
-      display: grid;
-      grid-template-columns: 80px 1fr 30px;
-      gap: 8px;
-      margin-bottom: 6px;
+    .qr-code i {
+      font-size: 60px;
+      color: #1f2937;
     }
 
-    .remove-btn {
-      color: #ef4444;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Generate Mode Logic */
     .gen-overlay {
       display: none;
       position: fixed;
@@ -325,13 +343,11 @@
       backdrop-filter: blur(20px);
       transition: all 0.5s;
       opacity: 0;
-      transform: translateY(20px);
     }
 
     .gen-overlay.active {
       display: flex;
       opacity: 1;
-      transform: translateY(0);
     }
 
     .back-to-editor {
@@ -344,79 +360,56 @@
       padding: 12px 24px;
       border-radius: 99px;
       font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-size: 10px;
       cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .back-to-editor:hover {
-      background: #ef4444;
-      border-color: #ef4444;
+      font-size: 10px;
+      transition: 0.3s;
     }
 
     .print-final-btn {
       margin-top: 40px;
-      background: #22c55e;
+      background: var(--p-color);
       color: white;
-      font-black: 900;
       padding: 20px 60px;
       border-radius: 20px;
       font-size: 14px;
-      letter-spacing: 3px;
       font-weight: 900;
-      box-shadow: 0 10px 40px rgba(34, 197, 94, 0.4);
+      box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
       cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .print-final-btn:hover {
-      background: #16a34a;
-      transform: translateY(-3px);
-    }
-
-    .hidden {
-      display: none !important;
+      transition: 0.3s;
+      letter-spacing: 2px;
     }
 
     @media print {
 
       .container-wrapper,
-      .gen-overlay .back-to-editor,
-      .gen-overlay .print-final-btn {
+      .back-to-editor,
+      .print-final-btn {
         display: none !important;
       }
 
       .gen-overlay {
         display: flex !important;
         background: white !important;
-        backdrop-filter: none !important;
         position: static !important;
         opacity: 1 !important;
         transform: none !important;
+        backdrop-filter: none !important;
       }
 
       .full {
         box-shadow: none !important;
         padding: 0 !important;
         margin: 0 auto !important;
-        transform: scale(1) !important;
-        background-color: transparent !important;
-      }
-
-      .inside {
-        border: 1px solid #eee;
+        background: transparent !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <div id="gen-view" class="gen-overlay">
-    <button class="back-to-editor" onclick="closeGen()"><i class="fas fa-arrow-left"></i> BACK TO EDITOR</button>
-    <div id="card-holder" class="flex flex-col items-center"></div>
-    <button class="print-final-btn" onclick="window.print()">FINAL PRINT</button>
+  <div id="gen-view" class="gen-overlay"><button class="back-to-editor" onclick="closeGen()"><i
+        class="fas fa-arrow-left"></i> BACK TO EDITOR</button>
+    <div id="card-holder"></div><button class="print-final-btn" onclick="window.print()">CONFIRM & PRINT CARD</button>
   </div>
 
   <div class="container-wrapper" id="main-ui">
@@ -427,19 +420,19 @@
       </div>
 
       <div class="form-content">
+        <!-- Global Theme Color -->
+        <div class="input-group">
+          <label class="group-label">Global Theme Style</label>
+          <div class="style-item"><label>Theme Accent Color</label><input type="color" id="theme-color" value="#8b5cf6"
+              oninput="uTheme(this.value)"></div>
+        </div>
+
         <div id="form-front">
-          <!-- Fields -->
           <div class="input-group" data-key="collage">
             <div class="group-header"><span class="group-label">Collage Name</span><button class="style-toggle-btn"
                 onclick="toggleS('collage')"><i class="fas fa-cog"></i> STYLES</button></div><input type="text"
               id="in-collage" value="MOHASIN COLLAGE" class="main-input">
             <div class="style-panel" id="sc-collage"></div>
-          </div>
-          <div class="input-group" data-key="dept">
-            <div class="group-header"><span class="group-label">Sidebar Dept Title</span><button
-                class="style-toggle-btn" onclick="toggleS('dept')"><i class="fas fa-cog"></i> STYLES</button></div>
-            <input type="text" id="in-dept" value="BANGLA DEPARTMENT" class="main-input">
-            <div class="style-panel" id="sc-dept"></div>
           </div>
           <div class="input-group" data-key="photo">
             <div class="group-header"><span class="group-label">Student Photo</span><button class="style-toggle-btn"
@@ -477,35 +470,35 @@
 
         <div id="form-back" class="hidden">
           <div class="input-group" data-key="backtitle">
-            <div class="group-header"><span class="group-label">Back Side Header</span><button class="style-toggle-btn"
+            <div class="group-header"><span class="group-label">Back Header</span><button class="style-toggle-btn"
                 onclick="toggleS('backtitle')"><i class="fas fa-cog"></i> STYLES</button></div><input type="text"
               id="in-backtitle" value="Subject Code" class="main-input">
             <div class="style-panel" id="sc-backtitle"></div>
           </div>
           <div class="input-group" data-key="subs">
-            <div class="group-header"><span class="group-label">Subjects Details</span><button class="style-toggle-btn"
+            <div class="group-header"><span class="group-label">Subjects</span><button class="style-toggle-btn"
                 onclick="toggleS('subs')"><i class="fas fa-cog"></i> STYLES</button></div>
             <div id="sub-container"></div><button onclick="addS()"
-              class="w-full py-3 bg-blue-50 text-blue-600 rounded-xl text-[11px] font-black mt-2 tracking-widest">+ ADD
-              NEW SUBJECT</button>
+              class="w-full py-3 bg-fuchsia-50 text-fuchsia-600 rounded-xl text-[11px] font-black mt-2 tracking-widest">+
+              ADD SUBJECT</button>
             <div class="style-panel" id="sc-subs"></div>
           </div>
           <div class="input-group" data-key="return">
-            <div class="group-header"><span class="group-label">Return Information</span><button
-                class="style-toggle-btn" onclick="toggleS('return')"><i class="fas fa-cog"></i> STYLES</button></div>
-            <input type="text" id="in-address" value="Syamnagor, Satkhira" class="main-input">
+            <div class="group-header"><span class="group-label">Return To</span><button class="style-toggle-btn"
+                onclick="toggleS('return')"><i class="fas fa-cog"></i> STYLES</button></div><input type="text"
+              id="in-address" value="Syamnagor, Satkhira" class="main-input">
             <div class="style-panel" id="sc-return"></div>
           </div>
           <div class="input-group" data-key="phone">
-            <div class="group-header"><span class="group-label">Emergency Contact Line</span><button
-                class="style-toggle-btn" onclick="toggleS('phone')"><i class="fas fa-cog"></i> STYLES</button></div>
-            <input type="text" id="in-phone" value="+8801700000000" class="main-input">
+            <div class="group-header"><span class="group-label">Phone Contact</span><button class="style-toggle-btn"
+                onclick="toggleS('phone')"><i class="fas fa-cog"></i> STYLES</button></div><input type="text"
+              id="in-phone" value="+8801700000000" class="main-input">
             <div class="style-panel" id="sc-phone"></div>
           </div>
         </div>
 
-        <button onclick="openGen()" id="gen-btn"
-          class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl mt-4 shadow-xl hover:bg-blue-700 active:translate-y-1 transition-all">GENERATE
+        <button onclick="openGen()"
+          class="w-full bg-violet-600 text-white font-black py-5 rounded-2xl mt-4 shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all">GENERATE
           & PRINT</button>
       </div>
     </div>
@@ -514,145 +507,97 @@
       <div class="full" id="live-card-container">
         <div class="inside" id="card-body"></div>
       </div>
-      <p class="text-gray-400 font-bold text-xs mt-10 uppercase tracking-widest opacity-70">LIVE EDIT PREVIEW</p>
+      <p class="text-gray-400 font-bold text-xs mt-10 uppercase tracking-[4px] opacity-70">Interactive Designer v5.0</p>
     </div>
   </div>
 
   <!-- Templates -->
   <template id="t-front">
-    <div class="mt-4"><img src="Screenshot_3.png" class="collage-logo-img"></div>
+    <div class="wave-top"></div>
+    <img src="Screenshot_3.png" class="collage-logo-img">
     <div class="c-el collage-name" id="c-collage"></div>
     <div class="img-section">
-      <div class="img-text" id="c-dept"></div>
       <div class="my-img-container" id="c-img-wrap"><img src="WhatsApp Image 2024-10-18 at 22.53.53_df57dcee.jpg"
           class="my-img" id="c-photo"></div>
     </div>
-    <div class="c-el my-name" id="c-name"></div>
-    <div class="c-el" id="c-roll-line">Roll : <span id="c-roll"></span></div>
-    <div class="c-el" id="c-session-line">Session : <span id="c-session"></span></div>
-    <div id="c-sign-wrap" class="sin-img-container"><img src="sing.png" class="sin-img" id="c-sign">
-      <div class="principal">Principal's signature</div>
+    <div class="text-content">
+      <div class="c-el my-name" id="c-name" style="margin-top:10px"></div>
+      <div class="details-grid">
+        <div class="c-el" id="c-roll-line">Roll : <span id="c-roll"></span></div>
+        <div class="c-el" id="c-session-line">Session : <span id="c-session"></span></div>
+      </div>
     </div>
+    <div id="c-sign-wrap" class="sin-img-container"><img src="sing.png" class="sin-img" id="c-sign">
+      <div class="principal">Signature</div>
+    </div>
+    <div class="wave-bottom"></div>
   </template>
 
   <template id="t-back">
-    <div class="back-card back-content">
-      <div class="c-el back-title" id="c-backtitle"></div>
+    <div class="wave-top" style="height:100px; opacity:0.6"></div>
+    <div class="back-content">
+      <div class="c-el back-title" id="c-backtitle" style="color:white; margin-bottom:20px"></div>
       <div class="c-el subjects-list" id="c-subs"></div>
-      <div class="return-section" id="c-return-section">
-        <div class="c-el return-title" id="c-re-title">If Found, Please Return To</div>
+      <div style="flex:1"></div>
+      <div class="return-section" style="border-top:1px solid #eee; padding-top:10px">
+        <div class="c-el return-title" id="c-re-title" style="font-size:11px">If Found, Please Return To</div>
         <div class="c-el address-text" id="c-address"></div>
+        <div class="c-el contact-info" id="c-contacts">Phone : <span id="cc-phone"></span></div>
       </div>
-      <div class="c-el contact-info" id="c-contacts">
-        <div>Phone : <span id="cc-phone"></span></div>
+      <div class="qr-code-section flex flex-col items-center">
+        <div class="qr-code"><i class="fas fa-qrcode"></i></div>
+        <p class="text-[7px] font-black tracking-widest opacity-40">SECURE ID VERIFIED</p>
       </div>
     </div>
+    <div class="wave-bottom"></div>
   </template>
 
   <script>
     let side = 'front';
     let subs = [{ c: "211501", n: "History of Bangladesh" }, { c: "211001", n: "Culture of Bangladesh" }];
     let imgs = { photo: null, sign: null };
-
-    const ds = { size: 14, weight: 600, color: '#000000', align: 'center', mt: 0, mb: 0, ml: 0, mr: 0, w: 0, h: 0 };
+    const ds = { size: 14, weight: 600, color: '#1f2937', align: 'center', mt: 0, mb: 0, ml: 0, mr: 0, w: 0, h: 0 };
     const sc = {
-      collage: { ...ds, size: 16, weight: 800, mt: 5 }, name: { ...ds, size: 16, weight: 800, mt: 8 }, roll: { ...ds, size: 11, align: 'left', ml: 20, mt: 8 }, session: { ...ds, size: 11, align: 'left', ml: 20 },
-      dept: { ...ds, size: 11, weight: 800, color: '#1E3A8A' }, photo: { ...ds, size: 180, border: 2, color: '#0000FF', radius: 0 }, sign: { ...ds, size: 25, mb: 20 },
-      backtitle: { ...ds, size: 20, weight: 800, color: '#076cf9', mt: 5 }, subs: { ...ds, size: 11, align: 'left', mt: 15, ml: 15, weight: 800 },
-      return: { ...ds, size: 14, weight: 900, color: '#FF0000' }, phone: { ...ds, size: 12, mt: 10, align: 'left', ml: 10, weight: 800 }
+      collage: { ...ds, size: 13, weight: 800, color: '#ffffff', mt: 2 },
+      name: { ...ds, size: 18, weight: 900, color: '#111827', mt: 10 },
+      roll: { ...ds, size: 12, weight: 700, align: 'center', mt: 2 },
+      session: { ...ds, size: 12, weight: 700, align: 'center' },
+      photo: { ...ds, size: 150, border: 6, color: '#ffffff', radius: 100, mt: 0 },
+      sign: { ...ds, size: 35, mb: 0 },
+      backtitle: { ...ds, size: 18, weight: 900, color: '#ffffff', mt: 0 },
+      subs: { ...ds, size: 11, align: 'left', mt: 5, ml: 0, weight: 700 },
+      return: { ...ds, size: 11, weight: 800, color: '#ef4444' },
+      phone: { ...ds, size: 11, align: 'center', weight: 800 }
     };
 
-    function openGen() {
-      const card = document.getElementById('live-card-container');
-      const holder = document.getElementById('card-holder');
-      holder.innerHTML = '';
-      holder.appendChild(card);
-      document.getElementById('gen-view').classList.add('active');
-      document.getElementById('main-ui').style.opacity = '0';
-      setTimeout(() => { document.getElementById('main-ui').classList.add('hidden'); }, 400);
-    }
-
-    function closeGen() {
-      const card = document.getElementById('card-holder').children[0];
-      document.getElementById('preview-sec').insertBefore(card, document.getElementById('preview-sec').firstChild);
-      document.getElementById('gen-view').classList.remove('active');
-      document.getElementById('main-ui').classList.remove('hidden');
-      setTimeout(() => { document.getElementById('main-ui').style.opacity = '1'; }, 50);
-    }
-
-    function toggleS(key) {
-      const panel = document.getElementById(`sc-${key}`);
-      const btn = panel.parentElement.querySelector('.style-toggle-btn');
-      const isHidden = panel.style.display === 'none' || panel.style.display === '';
-      panel.style.display = isHidden ? 'grid' : 'none';
-      btn.classList.toggle('active', isHidden);
-      btn.innerHTML = isHidden ? '<i class="fas fa-times"></i> HIDE' : '<i class="fas fa-cog"></i> STYLES';
-    }
-
-    function renderStyles() {
-      Object.keys(sc).forEach(key => {
-        const conf = sc[key];
-        const container = document.getElementById(`sc-${key}`);
-        if (!container) return;
-        container.innerHTML = `<div class="style-item"><label>Size</label><input type="number" data-key="${key}" data-prop="size" value="${conf.size}"></div><div class="style-item"><label>Weight</label><input type="number" data-key="${key}" data-prop="weight" value="${conf.weight || 600}"></div><div class="style-item"><label>Color</label><input type="color" data-key="${key}" data-prop="color" value="${conf.color || '#000000'}"></div><div class="style-item"><label>Align</label><select data-key="${key}" data-prop="align">${(key === 'dept' ? ['center', 'top', 'bottom'] : ['left', 'center', 'right']).map(o => `<option value="${o}" ${conf.align === o ? 'selected' : ''}>${o.toUpperCase()}</option>`).join('')}</select></div><div class="style-item"><label>Width</label><input type="number" data-key="${key}" data-prop="w" value="${conf.w}"></div><div class="style-item"><label>Height</label><input type="number" data-key="${key}" data-prop="h" value="${conf.h}"></div><div class="style-item"><label>Top</label><input type="number" data-key="${key}" data-prop="mt" value="${conf.mt}"></div><div class="style-item"><label>Bottom</label><input type="number" data-key="${key}" data-prop="mb" value="${conf.mb}"></div><div class="style-item"><label>Left</label><input type="number" data-key="${key}" data-prop="ml" value="${conf.ml}"></div><div class="style-item"><label>Right</label><input type="number" data-key="${key}" data-prop="mr" value="${conf.mr}"></div>` + (key === 'photo' ? `<div class="style-item"><label>Border Px</label><input type="number" data-key="${key}" data-prop="border" value="${conf.border}"></div><div class="style-item"><label>Radius Px</label><input type="number" data-key="${key}" data-prop="radius" value="${conf.radius}"></div>` : '');
-      });
-    }
-
-    function switchSide(s) {
-      side = s;
-      document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (s === 'front' ? i === 0 : i === 1)));
-      document.getElementById('form-front').classList.toggle('hidden', s === 'back');
-      document.getElementById('form-back').classList.toggle('hidden', s === 'front');
-      if (s === 'back') rSubs();
-      rCard();
-    }
-
-    function rSubs() {
-      const container = document.getElementById('sub-container');
-      container.innerHTML = subs.map((s, i) => `<div class="subject-row"><input type="text" value="${s.c}" oninput="uSub(${i},'c',this.value)"><input type="text" value="${s.n}" oninput="uSub(${i},'n',this.value)"><div class="remove-btn" onclick="rmSub(${i})"><i class="fas fa-times"></i></div></div>`).join('');
-    }
+    function uTheme(val) { document.documentElement.style.setProperty('--p-color', val); rCard(); }
+    function openGen() { const card = document.getElementById('live-card-container'); const holder = document.getElementById('card-holder'); holder.innerHTML = ''; holder.appendChild(card); document.getElementById('gen-view').classList.add('active'); document.getElementById('main-ui').style.opacity = '0'; setTimeout(() => { document.getElementById('main-ui').classList.add('hidden'); }, 300); }
+    function closeGen() { const card = document.getElementById('card-holder').children[0]; document.getElementById('preview-sec').insertBefore(card, document.getElementById('preview-sec').firstChild); document.getElementById('gen-view').classList.remove('active'); document.getElementById('main-ui').classList.remove('hidden'); setTimeout(() => { document.getElementById('main-ui').style.opacity = '1'; }, 50); }
+    function toggleS(key) { const panel = document.getElementById(`sc-${key}`); const btn = panel.parentElement.querySelector('.style-toggle-btn'); const isHidden = panel.style.display === 'none' || panel.style.display === ''; panel.style.display = isHidden ? 'grid' : 'none'; btn.classList.toggle('active', isHidden); btn.innerHTML = isHidden ? '<i class="fas fa-times"></i> HIDE' : '<i class="fas fa-cog"></i> STYLES'; }
+    function renderStyles() { Object.keys(sc).forEach(key => { const conf = sc[key]; const container = document.getElementById(`sc-${key}`); if (!container) return; container.innerHTML = `<div class="style-item"><label>Size</label><input type="number" data-key="${key}" data-prop="size" value="${conf.size}"></div><div class="style-item"><label>Weight</label><input type="number" data-key="${key}" data-prop="weight" value="${conf.weight || 600}"></div><div class="style-item"><label>Color</label><input type="color" data-key="${key}" data-prop="color" value="${conf.color || '#000000'}"></div><div class="style-item"><label>Align</label><select data-key="${key}" data-prop="align">${['left', 'center', 'right'].map(o => `<option value="${o}" ${conf.align === o ? 'selected' : ''}>${o.toUpperCase()}</option>`).join('')}</select></div><div class="style-item"><label>Width</label><input type="number" data-key="${key}" data-prop="w" value="${conf.w}"></div><div class="style-item"><label>Height</label><input type="number" data-key="${key}" data-prop="h" value="${conf.h}"></div><div class="style-item"><label>Top</label><input type="number" data-key="${key}" data-prop="mt" value="${conf.mt}"></div><div class="style-item"><label>Bottom</label><input type="number" data-key="${key}" data-prop="mb" value="${conf.mb}"></div><div class="style-item"><label>Left</label><input type="number" data-key="${key}" data-prop="ml" value="${conf.ml}"></div><div class="style-item"><label>Right</label><input type="number" data-key="${key}" data-prop="mr" value="${conf.mr}"></div>` + (key === 'photo' ? `<div class="style-item"><label>Border</label><input type="number" data-key="${key}" data-prop="border" value="${conf.border}"></div>` : ''); }); }
+    function switchSide(s) { side = s; document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (s === 'front' ? i === 0 : i === 1))); document.getElementById('form-front').classList.toggle('hidden', s === 'back'); document.getElementById('form-back').classList.toggle('hidden', s === 'front'); if (s === 'back') rSubs(); rCard(); }
+    function rSubs() { const container = document.getElementById('sub-container'); container.innerHTML = subs.map((s, i) => `<div class="subject-row"><input type="text" value="${s.c}" oninput="uSub(${i},'c',this.value)"><input type="text" value="${s.n}" oninput="uSub(${i},'n',this.value)"><div class="remove-btn" onclick="rmSub(${i})"><i class="fas fa-times"></i></div></div>`).join(''); }
     function addS() { subs.push({ c: "", n: "" }); rSubs(); rCard(); }
     function uSub(i, f, v) { subs[i][f] = v; rCard(); }
     function rmSub(i) { subs.splice(i, 1); rSubs(); rCard(); }
-
-    function rCard() {
-      const body = document.getElementById('card-body');
-      body.innerHTML = '';
-      body.appendChild(document.getElementById(`t-${side}`).content.cloneNode(true));
-      side === 'front' ? uFront() : uBack();
-    }
-
+    function rCard() { const body = document.getElementById('card-body'); body.innerHTML = ''; body.appendChild(document.getElementById(`t-${side}`).content.cloneNode(true)); side === 'front' ? uFront() : uBack(); }
     function uFront() {
       setStyles('c-collage', 'in-collage', 'collage'); setStyles('c-name', 'in-name', 'name'); setStyles('c-roll-line', null, 'roll'); document.getElementById('c-roll').textContent = val('in-roll'); setStyles('c-session-line', null, 'session'); document.getElementById('c-session').textContent = val('in-session');
-      const dept = document.getElementById('c-dept'); const d = sc.dept; dept.textContent = val('in-dept'); dept.style.fontSize = d.size + 'px'; dept.style.fontWeight = d.weight; dept.style.color = d.color; dept.style.justifyContent = d.align === 'top' ? 'flex-end' : (d.align === 'bottom' ? 'flex-start' : 'center'); dept.style.margin = `${d.mt}px ${d.mr}px ${d.mb}px ${d.ml}px`;
-      const imgWrap = document.getElementById('c-img-wrap'); const p = sc.photo; imgWrap.style.width = (p.w || p.size) + 'px'; imgWrap.style.height = (p.h || p.size) + 'px'; imgWrap.style.borderWidth = p.border + 'px'; imgWrap.style.borderColor = p.color; imgWrap.style.borderRadius = p.radius + 'px'; imgWrap.style.margin = `${p.mt}px ${p.mr}px ${p.mb}px ${p.ml}px`; if (imgs.photo) document.getElementById('c-photo').src = imgs.photo;
-      const signWrap = document.getElementById('c-sign-wrap'); const s = sc.sign; const signImg = document.getElementById('c-sign'); signImg.style.height = (s.h || s.size) + 'px'; if (s.w) signImg.style.width = s.w + 'px'; signWrap.style.margin = `${s.mt}px ${s.mr}px ${s.mb}px ${s.ml}px`; if (imgs.sign) signImg.src = imgs.sign;
+      const imgWrap = document.getElementById('c-img-wrap'); const p = sc.photo; imgWrap.style.width = (p.w || p.size) + 'px'; imgWrap.style.height = (p.h || p.size) + 'px'; imgWrap.style.borderWidth = p.border + 'px'; imgWrap.style.borderColor = p.color; imgWrap.style.margin = `${p.mt}px ${p.mr}px ${p.mb}px ${p.ml}px`; if (imgs.photo) document.getElementById('c-photo').src = imgs.photo;
+      const signImg = document.getElementById('c-sign'); const s = sc.sign; signImg.style.height = (s.h || s.size) + 'px'; signImg.parentElement.style.margin = `${s.mt}px ${s.mr}px ${s.mb}px ${s.ml}px`; if (imgs.sign) signImg.src = imgs.sign;
     }
-
     function uBack() {
       setStyles('c-backtitle', 'in-backtitle', 'backtitle'); setStyles('c-subs', null, 'subs'); document.getElementById('c-subs').innerHTML = subs.map(s => `<div style="font-weight:${sc.subs.weight}">${s.c} ${s.n}</div>`).join('');
       setStyles('c-re-title', null, 'return'); setStyles('c-address', 'in-address', 'return'); setStyles('c-contacts', 'in-phone', 'phone'); document.getElementById('cc-phone').textContent = val('in-phone');
     }
-
     function val(id) { return document.getElementById(id) ? document.getElementById(id).value : ''; }
     function setStyles(targetId, inputId, configKey) {
       const el = document.getElementById(targetId); const conf = sc[configKey]; if (inputId) el.textContent = val(inputId);
       el.style.fontSize = conf.size + 'px'; el.style.fontWeight = conf.weight; el.style.color = conf.color; el.style.textAlign = conf.align; el.style.margin = `${conf.mt}px ${conf.mr}px ${conf.mb}px ${conf.ml}px`; if (conf.w) el.style.width = conf.w + 'px'; if (conf.h) el.style.height = conf.h + 'px';
     }
-
-    document.addEventListener('input', (e) => {
-      const k = e.target.dataset.key;
-      if (k) { sc[k][e.target.dataset.prop] = e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value; rCard(); } else if (e.target.id.startsWith('in-')) { rCard(); }
-    });
-
+    document.addEventListener('input', (e) => { const k = e.target.dataset.key; if (k) { sc[k][e.target.dataset.prop] = e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value; rCard(); } else if (e.target.id.startsWith('in-')) { rCard(); } });
     document.querySelectorAll('input[type="file"]').forEach(inp => handleFile(inp.id, inp.id === 'up-photo' ? 'photo' : 'sign'));
-
-    function handleFile(id, key) {
-      document.getElementById(id).addEventListener('change', function () {
-        if (this.files[0]) { const reader = new FileReader(); reader.onload = (ex) => { imgs[key] = ex.target.result; rCard(); }; reader.readAsDataURL(this.files[0]); }
-      });
-    }
-
+    function handleFile(id, key) { document.getElementById(id).addEventListener('change', function () { if (this.files[0]) { const reader = new FileReader(); reader.onload = (ex) => { imgs[key] = ex.target.result; rCard(); }; reader.readAsDataURL(this.files[0]); } }); }
     renderStyles(); switchSide('front');
   </script>
 </body>
