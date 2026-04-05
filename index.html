@@ -55,7 +55,8 @@
     .preview-container {
       display: flex;
       flex-direction: column;
-      items-center;
+      align-items: center;
+      justify-content: center;
       position: sticky;
       top: 10px;
       order: 1;
@@ -68,14 +69,13 @@
         top: 0;
         order: 1;
         margin-bottom: 0;
-        padding: 15px;
+        padding: 10px;
         background: rgba(243, 244, 246, 0.95);
         backdrop-filter: blur(10px);
         border-bottom: 1px solid #e5e7eb;
         width: 100%;
         box-sizing: border-box;
-        height: 280px;
-        justify-content: center;
+        height: 250px;
         overflow: hidden;
       }
     }
@@ -219,7 +219,7 @@
       font-weight: 700;
     }
 
-    /* Card Styles */
+    /* FIXED: Centered Card Scaler on Mobile */
     .card-scaler {
       display: flex;
       align-items: center;
@@ -231,19 +231,17 @@
 
     @media (max-width: 1200px) {
       .card-scaler {
-        transform: scale(0.45);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .card-scaler {
-        transform: scale(0.4);
+        transform: scale(0.42);
+        width: auto;
+        margin: 0 auto;
+        height: 100%;
+        transform-origin: center center;
       }
     }
 
     @media (max-width: 450px) {
       .card-scaler {
-        transform: scale(0.35);
+        transform: scale(0.38);
       }
     }
 
@@ -256,6 +254,7 @@
       justify-content: center;
       border-radius: 20px;
       padding: 20px;
+      flex-shrink: 0;
     }
 
     .inside {
@@ -376,7 +375,6 @@
       text-align: left;
     }
 
-    /* GREEN LINE FIX: Added margin: 6px auto to center it */
     .back-title::after {
       content: "";
       display: block;
@@ -538,7 +536,7 @@
         </div>
       </div>
       <p class="text-gray-400 font-bold text-[8px] sm:text-xs mt-2 uppercase tracking-widest opacity-70 text-center">
-        LIVE EDIT MODE</p>
+        STUDENT CARD LIVE PREVIEW</p>
     </div>
   </div>
 
