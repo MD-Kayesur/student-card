@@ -102,10 +102,6 @@
       gap: 5px;
     }
 
-    .style-toggle-btn:hover {
-      background: #bae6fd;
-    }
-
     .style-toggle-btn.active {
       background: #3b82f6;
       color: white;
@@ -216,7 +212,6 @@
       margin: 0 auto;
       z-index: 2;
       position: relative;
-      filter: brightness(0) invert(1);
     }
 
     .img-section {
@@ -265,13 +260,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 50px;
+      justify-content: flex-end;
     }
 
     .sin-img {
       height: 25px;
       object-fit: contain;
-      filter: brightness(0) invert(1);
-      opacity: 0.9;
     }
 
     .principal {
@@ -356,12 +351,17 @@
 
       <div class="form-content">
         <div id="form-front">
-          <!-- Groups with Toggle Buttons -->
           <div class="input-group" data-key="collage">
-            <div class="group-header"><span class="group-label">Collage Name</span><button class="style-toggle-btn"
+            <div class="group-header"><span class="group-label">Institution Logo</span><button class="style-toggle-btn"
                 onclick="toggleS('collage')"><i class="fas fa-cog"></i> STYLES</button></div>
-            <input type="text" id="in-collage" value="MOHASIN COLLAGE" class="main-input">
+            <input type="file" id="up-logo" class="main-input">
             <div class="style-panel" id="sc-collage"></div>
+          </div>
+          <div class="input-group" data-key="collage-name">
+            <div class="group-header"><span class="group-label">Institution Name</span><button class="style-toggle-btn"
+                onclick="toggleS('collage-name')"><i class="fas fa-cog"></i> STYLES</button></div>
+            <input type="text" id="in-collage" value="MOHASIN COLLAGE" class="main-input">
+            <div class="style-panel" id="sc-collage-name"></div>
           </div>
           <div class="input-group" data-key="dept">
             <div class="group-header"><span class="group-label">Sidebar Dept Title</span><button
@@ -449,7 +449,7 @@
 
   <!-- Templates -->
   <template id="t-front">
-    <div class="mt-4"><img src="Screenshot_3.png" class="collage-logo-img"></div>
+    <div class="mt-4"><img src="Screenshot_3.png" class="collage-logo-img" id="c-logo"></div>
     <div class="c-el collage-name" id="c-collage"></div>
     <div class="img-section">
       <div class="img-text" id="c-dept"></div>
@@ -482,17 +482,18 @@
   <script>
     let side = 'front';
     let subs = [{ c: "211501", n: "History of Bangladesh" }, { c: "211001", n: "Culture of Bangladesh" }];
-    let imgs = { photo: null, sign: null };
+    let imgs = { photo: null, sign: null, logo: null };
 
-    const ds = { size: 14, weight: 600, color: '#ffffff', align: 'center', mt: 0, mb: 0, ml: 0, mr: 0, w: 0, h: 0 };
+    const ds = { size: 14, weight: 600, color: '#ffffff', align: 'center', mt: 0, mb: 0, ml: 0, mr: 0, w: 0, h: 0, invert: 0 };
     const sc = {
-      collage: { ...ds, size: 16, weight: 900, mt: 5 },
+      collage: { ...ds, size: 40, invert: 1, mt: 5 },
+      'collage-name': { ...ds, size: 16, weight: 900, mt: 5 },
       name: { ...ds, size: 16, weight: 900, mt: 10 },
       roll: { ...ds, size: 12, weight: 700, align: 'left', ml: 20, mt: 8 },
       session: { ...ds, size: 12, weight: 700, align: 'left', ml: 20 },
       dept: { ...ds, size: 11, weight: 900, color: '#ffffff' },
       photo: { ...ds, size: 180, border: 4, color: '#ffffff', radius: 10 },
-      sign: { ...ds, size: 25, mb: 20 },
+      sign: { ...ds, size: 25, mb: 20, invert: 1 },
       backtitle: { ...ds, size: 20, weight: 900, color: '#ffffff', mt: 5 },
       subs: { ...ds, size: 11, align: 'left', mt: 15, ml: 5, weight: 800 },
       return: { ...ds, size: 13, weight: 900, color: '#ffffff' },
@@ -513,7 +514,7 @@
         const conf = sc[key];
         const container = document.getElementById(`sc-${key}`);
         if (!container) return;
-        container.innerHTML = `<div class="style-item"><label>Size</label><input type="number" data-key="${key}" data-prop="size" value="${conf.size}"></div><div class="style-item"><label>Weight</label><input type="number" data-key="${key}" data-prop="weight" value="${conf.weight || 600}"></div><div class="style-item"><label>Color</label><input type="color" data-key="${key}" data-prop="color" value="${conf.color || '#000000'}"></div><div class="style-item"><label>Align</label><select data-key="${key}" data-prop="align">${['left', 'center', 'right'].map(o => `<option value="${o}" ${conf.align === o ? 'selected' : ''}>${o.toUpperCase()}</option>`).join('')}</select></div><div class="style-item"><label>Width</label><input type="number" data-key="${key}" data-prop="w" value="${conf.w}"></div><div class="style-item"><label>Height</label><input type="number" data-key="${key}" data-prop="h" value="${conf.h}"></div><div class="style-item"><label>Top</label><input type="number" data-key="${key}" data-prop="mt" value="${conf.mt}"></div><div class="style-item"><label>Bot</label><input type="number" data-key="${key}" data-prop="mb" value="${conf.mb}"></div><div class="style-item"><label>Left</label><input type="number" data-key="${key}" data-prop="ml" value="${conf.ml}"></div><div class="style-item"><label>Right</label><input type="number" data-key="${key}" data-prop="mr" value="${conf.mr}"></div>` + (key === 'photo' ? `<div class="style-item"><label>Border</label><input type="number" data-key="${key}" data-prop="border" value="${conf.border}"></div>` : '');
+        container.innerHTML = `<div class="style-item"><label>Size</label><input type="number" data-key="${key}" data-prop="size" value="${conf.size}"></div><div class="style-item"><label>Weight</label><input type="number" data-key="${key}" data-prop="weight" value="${conf.weight || 600}"></div><div class="style-item"><label>Color</label><input type="color" data-key="${key}" data-prop="color" value="${conf.color || '#000000'}"></div><div class="style-item"><label>Align</label><select data-key="${key}" data-prop="align">${['left', 'center', 'right'].map(o => `<option value="${o}" ${conf.align === o ? 'selected' : ''}>${o.toUpperCase()}</option>`).join('')}</select></div><div class="style-item"><label>Width</label><input type="number" data-key="${key}" data-prop="w" value="${conf.w}"></div><div class="style-item"><label>Height</label><input type="number" data-key="${key}" data-prop="h" value="${conf.h}"></div><div class="style-item"><label>Top</label><input type="number" data-key="${key}" data-prop="mt" value="${conf.mt}"></div><div class="style-item"><label>Bot</label><input type="number" data-key="${key}" data-prop="mb" value="${conf.mb}"></div><div class="style-item"><label>Left</label><input type="number" data-key="${key}" data-prop="ml" value="${conf.ml}"></div><div class="style-item"><label>Right</label><input type="number" data-key="${key}" data-prop="mr" value="${conf.mr}"></div>` + (key === 'photo' ? `<div class="style-item"><label>Border</label><input type="number" data-key="${key}" data-prop="border" value="${conf.border}"></div>` : '') + ((key === 'sign' || key === 'collage') ? `<div class="style-item"><label>Invert White</label><select data-key="${key}" data-prop="invert"><option value="0" ${conf.invert == 0 ? 'selected' : ''}>NO</option><option value="1" ${conf.invert == 1 ? 'selected' : ''}>YES</option></select></div>` : '');
       });
     }
 
@@ -535,10 +536,12 @@
     function rmSub(i) { subs.splice(i, 1); rSubs(); rCard(); }
     function rCard() { const body = document.getElementById('card-body'); body.innerHTML = ''; body.appendChild(document.getElementById(`t-${side}`).content.cloneNode(true)); side === 'front' ? uFront() : uBack(); }
     function uFront() {
-      setStyles('c-collage', 'in-collage', 'collage'); setStyles('c-name', 'in-name', 'name'); setStyles('c-roll-line', null, 'roll'); document.getElementById('c-roll').textContent = val('in-roll'); setStyles('c-session-line', null, 'session'); document.getElementById('c-session').textContent = val('in-session');
+      setStyles('c-collage', 'in-collage', 'collage-name');
+      const logoImg = document.getElementById('c-logo'); const cl = sc.collage; logoImg.style.height = (cl.h || cl.size) + 'px'; logoImg.style.margin = `${cl.mt}px ${cl.mr}px ${cl.mb}px ${cl.ml}px`; logoImg.style.filter = cl.invert == 1 ? 'brightness(0) invert(1)' : 'none'; if (imgs.logo) logoImg.src = imgs.logo;
+      setStyles('c-name', 'in-name', 'name'); setStyles('c-roll-line', null, 'roll'); document.getElementById('c-roll').textContent = val('in-roll'); setStyles('c-session-line', null, 'session'); document.getElementById('c-session').textContent = val('in-session');
       const dept = document.getElementById('c-dept'); dept.textContent = val('in-dept'); dept.style.fontSize = sc.dept.size + 'px'; dept.style.fontWeight = sc.dept.weight; dept.style.color = sc.dept.color; dept.style.margin = `${sc.dept.mt}px ${sc.dept.mr}px ${sc.dept.mb}px ${sc.dept.ml}px`;
       const imgWrap = document.getElementById('c-img-wrap'); const p = sc.photo; imgWrap.style.width = (p.w || p.size) + 'px'; imgWrap.style.height = (p.h || p.size) + 'px'; imgWrap.style.borderWidth = p.border + 'px'; imgWrap.style.borderColor = p.color; imgWrap.style.margin = `${p.mt}px ${p.mr}px ${p.mb}px ${p.ml}px`; if (imgs.photo) document.getElementById('c-photo').src = imgs.photo;
-      const signImg = document.getElementById('c-sign'); const s = sc.sign; signImg.style.height = (s.h || s.size) + 'px'; if (imgs.sign) signImg.src = imgs.sign;
+      const signImg = document.getElementById('c-sign'); const s = sc.sign; signImg.style.height = (s.h || s.size) + 'px'; signImg.style.margin = `${s.mt}px ${s.mr}px ${s.mb}px ${s.ml}px`; signImg.style.filter = s.invert == 1 ? 'brightness(0) invert(1)' : 'none'; if (imgs.sign) signImg.src = imgs.sign;
     }
     function uBack() {
       setStyles('c-backtitle', 'in-backtitle', 'backtitle'); setStyles('c-subs', null, 'subs'); document.getElementById('c-subs').innerHTML = subs.map(s => `<div style="font-weight:${sc.subs.weight}">${s.c} ${s.n}</div>`).join('');
@@ -550,8 +553,8 @@
       el.style.fontSize = conf.size + 'px'; el.style.fontWeight = conf.weight; el.style.color = conf.color; el.style.textAlign = conf.align; el.style.margin = `${conf.mt}px ${conf.mr}px ${conf.mb}px ${conf.ml}px`; if (conf.w) el.style.width = conf.w + 'px'; if (conf.h) el.style.height = conf.h + 'px';
     }
     document.addEventListener('input', (e) => { const k = e.target.dataset.key; if (k) { sc[k][e.target.dataset.prop] = e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value; rCard(); } else if (e.target.id.startsWith('in-')) { rCard(); } });
-    document.querySelectorAll('input[type="file"]').forEach(inp => handleFile(inp.id, inp.id === 'up-photo' ? 'photo' : 'sign'));
-    function handleFile(id, key) { document.getElementById(id).addEventListener('change', function () { if (this.files[0]) { const reader = new FileReader(); reader.onload = (ex) => { imgs[key] = ex.target.result; rCard(); }; reader.readAsDataURL(this.files[0]); } }); }
+    handleFile('up-photo', 'photo'); handleFile('up-sign', 'sign'); handleFile('up-logo', 'logo');
+    function handleFile(id, key) { if (!document.getElementById(id)) return; document.getElementById(id).addEventListener('change', function () { if (this.files[0]) { const reader = new FileReader(); reader.onload = (ex) => { imgs[key] = ex.target.result; rCard(); }; reader.readAsDataURL(this.files[0]); } }); }
     renderStyles(); switchSide('front');
   </script>
 </body>
