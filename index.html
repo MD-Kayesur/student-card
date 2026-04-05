@@ -24,11 +24,51 @@
       align-items: start;
     }
 
+    @media (max-width: 1200px) {
+      .container-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 20px;
+      }
+    }
+
     .editor-container {
       background: white;
       border-radius: 20px;
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      order: 2;
+    }
+
+    @media (max-width: 1200px) {
+      .editor-container {
+        order: 2;
+      }
+    }
+
+    .preview-container {
+      display: flex;
+      flex-direction: column;
+      items-center;
+      position: sticky;
+      top: 10px;
+      order: 1;
+    }
+
+    @media (max-width: 1200px) {
+      .preview-container {
+        position: relative;
+        top: 0;
+        order: 1;
+        margin-bottom: 20px;
+        padding: 20px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
     }
 
     .tabs {
@@ -61,6 +101,13 @@
       padding: 30px;
       max-height: 85vh;
       overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+      .form-content {
+        padding: 20px;
+        max-height: none;
+      }
     }
 
     .input-group {
@@ -163,6 +210,38 @@
     }
 
     /* Card Styles */
+    .card-scaler {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 520px;
+      transition: transform 0.3s;
+    }
+
+    @media (max-width: 600px) {
+      .card-scaler {
+        transform: scale(0.7);
+        width: 100%;
+        height: 420px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .card-scaler {
+        transform: scale(0.6);
+        width: 100%;
+        height: 360px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .card-scaler {
+        transform: scale(0.5);
+        width: 100%;
+        height: 300px;
+      }
+    }
+
     .full {
       height: 600px;
       width: 520px;
@@ -435,22 +514,25 @@
           </div>
         </div>
 
-        <div class="flex gap-4 mt-4">
+        <div class="flex flex-col sm:flex-row gap-4 mt-4">
           <button onclick="window.print()"
             class="flex-1 bg-blue-600 text-white font-black py-5 rounded-2xl shadow-xl active:translate-y-1 transition-all">GENERATE
             & PRINT</button>
           <button onclick="resetData()"
-            class="px-6 bg-red-100 text-red-600 font-black rounded-2xl border-2 border-red-200 hover:bg-red-200 transition-all"><i
+            class="px-6 bg-red-100 text-red-600 font-black py-5 sm:py-0 rounded-2xl border-2 border-red-200 hover:bg-red-200 transition-all"><i
               class="fas fa-trash-alt"></i> RESET</button>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col items-center sticky top-10">
-      <div class="full">
-        <div class="inside" id="card-body"></div>
+    <div class="preview-container">
+      <div class="card-scaler">
+        <div class="full">
+          <div class="inside" id="card-body"></div>
+        </div>
       </div>
-      <p class="text-gray-400 font-bold text-xs mt-10 uppercase tracking-widest opacity-70">LIVE DESIGN PREVIEW</p>
+      <p class="text-gray-400 font-bold text-xs mt-6 uppercase tracking-widest opacity-70 text-center">STUDENT CARD LIVE
+        PREVIEW</p>
     </div>
   </div>
 
