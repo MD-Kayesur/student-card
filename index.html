@@ -9,6 +9,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
+    :root {
+      --card-bg: #fdfaff;
+      --p-color: #9333ea;
+    }
+
     body {
       background-color: #f8fafc;
       font-family: 'Inter', sans-serif;
@@ -51,9 +56,9 @@
     }
 
     .tab-btn.active {
-      color: #9333ea;
+      color: var(--p-color);
       background: white;
-      border-bottom: 3.5px solid #9333ea;
+      border-bottom: 3.5px solid var(--p-color);
       margin-bottom: -3.5px;
     }
 
@@ -84,7 +89,7 @@
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #9333ea;
+      color: var(--p-color);
     }
 
     .style-toggle-btn {
@@ -102,12 +107,8 @@
       gap: 5px;
     }
 
-    .style-toggle-btn:hover {
-      background: #ddd6fe;
-    }
-
     .style-toggle-btn.active {
-      background: #9333ea;
+      background: var(--p-color);
       color: white;
     }
 
@@ -124,7 +125,7 @@
 
     .main-input:focus {
       outline: none;
-      border-color: #9333ea;
+      border-color: var(--p-color);
       box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.1);
     }
 
@@ -167,7 +168,7 @@
       color: #581c87;
     }
 
-    /* Card Styles with New Color Idea */
+    /* Card Styles */
     .full {
       height: 600px;
       width: 500px;
@@ -177,11 +178,10 @@
       justify-content: center;
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.2);
     }
 
     .inside {
-      background-color: white;
+      background-color: var(--card-bg);
       padding: 10px;
       height: 480px;
       width: 280px;
@@ -192,6 +192,7 @@
       display: flex;
       flex-direction: column;
       border: 1.5px solid #d1d5db;
+      transition: background-color 0.3s;
     }
 
     .back-card::before {
@@ -233,7 +234,7 @@
     }
 
     .img-text {
-      color: #9333ea;
+      color: var(--p-color);
       white-space: nowrap;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
@@ -248,9 +249,9 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border: 3px solid #9333ea;
+      border: 3px solid var(--p-color);
       border-radius: 10px;
-      background: #f5f3ff;
+      background: white;
     }
 
     .my-img {
@@ -297,7 +298,7 @@
       display: block;
       width: 50%;
       height: 2px;
-      background: #9333ea;
+      background: var(--p-color);
       margin: 4px auto;
       border-radius: 10px;
     }
@@ -350,6 +351,17 @@
       </div>
 
       <div class="form-content">
+        <!-- Color Idea Section -->
+        <div class="input-group">
+          <label class="group-label">Card Background Style</label>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="style-item"><label>Theme Accent</label><input type="color" value="#9333ea"
+                oninput="uTheme(this.value)"></div>
+            <div class="style-item"><label>Card Background</label><input type="color" value="#fdfaff"
+                oninput="uCardBg(this.value)"></div>
+          </div>
+        </div>
+
         <div id="form-front">
           <div class="input-group" data-key="collage">
             <div class="group-header"><span class="group-label">Institution Name</span><button class="style-toggle-btn"
@@ -409,7 +421,7 @@
                 onclick="toggleS('subs')"><i class="fas fa-cog"></i> STYLES</button></div>
             <div id="sub-container"></div>
             <button onclick="addS()"
-              class="w-full py-3 bg-fuchsia-50 text-fuchsia-600 rounded-xl text-[11px] font-black mt-2 tracking-widest">+
+              class="w-full py-3 bg-purple-50 text-purple-600 rounded-xl text-[11px] font-black mt-2 tracking-widest">+
               ADD NEW SUBJECT</button>
             <div class="style-panel" id="sc-subs"></div>
           </div>
@@ -454,16 +466,16 @@
     <div class="c-el" id="c-roll-line">Roll : <span id="c-roll"></span></div>
     <div class="c-el" id="c-session-line">Session : <span id="c-session"></span></div>
     <div id="c-sign-wrap" class="sin-img-container"><img src="sing.png" class="sin-img" id="c-sign">
-      <div class="principal" style="color:#7c3aed; border-top:1px solid #7c3aed">Principal's signature</div>
+      <div class="principal">Principal's signature</div>
     </div>
   </template>
 
   <template id="t-back">
     <div class="back-card back-content">
-      <div class="c-el back-title" id="c-backtitle" style="color:#9333ea"></div>
+      <div class="c-el back-title" id="c-backtitle"></div>
       <div class="c-el subjects-list" id="c-subs"></div>
       <div class="return-section" id="c-return-section">
-        <div class="c-el return-title" id="c-re-title" style="color:#9333ea">If Found, Please Return To</div>
+        <div class="c-el return-title" id="c-re-title">If Found, Please Return To</div>
         <div class="c-el address-text" id="c-address"></div>
       </div>
       <div class="c-el contact-info" id="c-contacts">
@@ -491,6 +503,9 @@
       return: { ...ds, size: 14, weight: 900, color: '#9333ea' },
       phone: { ...ds, size: 12, mt: 10, align: 'left', ml: 10, weight: 800 }
     };
+
+    function uTheme(val) { document.documentElement.style.setProperty('--p-color', val); rCard(); }
+    function uCardBg(val) { document.documentElement.style.setProperty('--card-bg', val); }
 
     function toggleS(key) {
       const panel = document.getElementById(`sc-${key}`);
