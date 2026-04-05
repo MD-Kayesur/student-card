@@ -351,6 +351,7 @@
 
       <div class="form-content">
         <div id="form-front">
+          <!-- Groups with Toggle Buttons -->
           <div class="input-group" data-key="collage">
             <div class="group-header"><span class="group-label">Institution Logo</span><button class="style-toggle-btn"
                 onclick="toggleS('collage')"><i class="fas fa-cog"></i> STYLES</button></div>
@@ -433,9 +434,14 @@
           </div>
         </div>
 
-        <button onclick="window.print()"
-          class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl mt-4 shadow-xl active:translate-y-1 transition-all">GENERATE
-          & PRINT</button>
+        <div class="flex gap-4 mt-4">
+          <button onclick="window.print()"
+            class="flex-1 bg-blue-600 text-white font-black py-5 rounded-2xl shadow-xl active:translate-y-1 transition-all">GENERATE
+            & PRINT</button>
+          <button onclick="resetData()"
+            class="px-6 bg-red-100 text-red-600 font-black rounded-2xl border-2 border-red-200 hover:bg-red-200 transition-all"><i
+              class="fas fa-trash-alt"></i> RESET</button>
+        </div>
       </div>
     </div>
 
@@ -443,7 +449,7 @@
       <div class="full">
         <div class="inside" id="card-body"></div>
       </div>
-      <p class="text-gray-400 font-bold text-xs mt-10 uppercase tracking-widest opacity-70">PRO CARD DESIGNER</p>
+      <p class="text-gray-400 font-bold text-xs mt-10 uppercase tracking-widest opacity-70">PERSISTENT DESIGN ENGINE</p>
     </div>
   </div>
 
@@ -485,7 +491,7 @@
     let imgs = { photo: null, sign: null, logo: null };
 
     const ds = { size: 14, weight: 600, color: '#ffffff', align: 'center', mt: 0, mb: 0, ml: 0, mr: 0, w: 0, h: 0, invert: 0 };
-    const sc = {
+    let sc = {
       collage: { ...ds, size: 40, invert: 1, mt: 5 },
       'collage-name': { ...ds, size: 16, weight: 900, mt: 5 },
       name: { ...ds, size: 16, weight: 900, mt: 10 },
@@ -499,6 +505,37 @@
       return: { ...ds, size: 13, weight: 900, color: '#ffffff' },
       phone: { ...ds, size: 12, mt: 8, align: 'left', ml: 0, weight: 800 }
     };
+
+    const defaultSC = JSON.parse(JSON.stringify(sc));
+    const defaultSubs = JSON.parse(JSON.stringify(subs));
+
+    function save() {
+      const data = {
+        sc, subs, imgs,
+        fields: {
+          ic: val('in-collage'), id: val('in-dept'), in: val('in-name'),
+          ir: val('in-roll'), is: val('in-session'), ibt: val('in-backtitle'),
+          ia: val('in-address'), ip: val('in-phone')
+        }
+      };
+      localStorage.setItem('studentCardData', JSON.stringify(data));
+    }
+
+    function load() {
+      const saved = localStorage.getItem('studentCardData');
+      if (saved) {
+        const data = JSON.parse(saved);
+        sc = data.sc; subs = data.subs; imgs = data.imgs;
+        if (data.fields) {
+          setV('in-collage', data.fields.ic); setV('in-dept', data.fields.id); setV('in-name', data.fields.in);
+          setV('in-roll', data.fields.ir); setV('in-session', data.fields.is); setV('in-backtitle', data.fields.ibt);
+          setV('in-address', data.fields.ia); setV('in-phone', data.fields.ip);
+        }
+      }
+      renderStyles(); switchSide('front');
+    }
+    function setV(id, v) { if (document.getElementById(id)) document.getElementById(id).value = v || ''; }
+    function resetData() { if (confirm('Warning: This will delete all your saved designs and text. Reset now?')) { localStorage.removeItem('studentCardData'); location.reload(); } }
 
     function toggleS(key) {
       const panel = document.getElementById(`sc-${key}`);
@@ -531,9 +568,9 @@
       const container = document.getElementById('sub-container');
       container.innerHTML = subs.map((s, i) => `<div class="subject-row"><input type="text" value="${s.c}" oninput="uSub(${i},'c',this.value)"><input type="text" value="${s.n}" oninput="uSub(${i},'n',this.value)"><div class="remove-btn" onclick="rmSub(${i})"><i class="fas fa-times"></i></div></div>`).join('');
     }
-    function addS() { subs.push({ c: "", n: "" }); rSubs(); rCard(); }
-    function uSub(i, f, v) { subs[i][f] = v; rCard(); }
-    function rmSub(i) { subs.splice(i, 1); rSubs(); rCard(); }
+    function addS() { subs.push({ c: "", n: "" }); rSubs(); rCard(); save(); }
+    function uSub(i, f, v) { subs[i][f] = v; rCard(); save(); }
+    function rmSub(i) { subs.splice(i, 1); rSubs(); rCard(); save(); }
     function rCard() { const body = document.getElementById('card-body'); body.innerHTML = ''; body.appendChild(document.getElementById(`t-${side}`).content.cloneNode(true)); side === 'front' ? uFront() : uBack(); }
     function uFront() {
       setStyles('c-collage', 'in-collage', 'collage-name');
@@ -552,10 +589,15 @@
       const el = document.getElementById(targetId); const conf = sc[configKey]; if (inputId) el.textContent = val(inputId);
       el.style.fontSize = conf.size + 'px'; el.style.fontWeight = conf.weight; el.style.color = conf.color; el.style.textAlign = conf.align; el.style.margin = `${conf.mt}px ${conf.mr}px ${conf.mb}px ${conf.ml}px`; if (conf.w) el.style.width = conf.w + 'px'; if (conf.h) el.style.height = conf.h + 'px';
     }
-    document.addEventListener('input', (e) => { const k = e.target.dataset.key; if (k) { sc[k][e.target.dataset.prop] = e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value; rCard(); } else if (e.target.id.startsWith('in-')) { rCard(); } });
+    document.addEventListener('input', (e) => {
+      const k = e.target.dataset.key;
+      if (k) { sc[k][e.target.dataset.prop] = e.target.type === 'number' ? parseFloat(e.target.value) : e.target.value; rCard(); }
+      else if (e.target.id.startsWith('in-')) { rCard(); }
+      save();
+    });
     handleFile('up-photo', 'photo'); handleFile('up-sign', 'sign'); handleFile('up-logo', 'logo');
-    function handleFile(id, key) { if (!document.getElementById(id)) return; document.getElementById(id).addEventListener('change', function () { if (this.files[0]) { const reader = new FileReader(); reader.onload = (ex) => { imgs[key] = ex.target.result; rCard(); }; reader.readAsDataURL(this.files[0]); } }); }
-    renderStyles(); switchSide('front');
+    function handleFile(id, key) { if (!document.getElementById(id)) return; document.getElementById(id).addEventListener('change', function () { if (this.files[0]) { const reader = new FileReader(); reader.onload = (ex) => { imgs[key] = ex.target.result; rCard(); save(); }; reader.readAsDataURL(this.files[0]); } }); }
+    load();
   </script>
 </body>
 
