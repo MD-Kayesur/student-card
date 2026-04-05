@@ -16,10 +16,10 @@
 
     .container-wrapper {
       display: grid;
-      grid-template-columns: 520px 1fr;
+      grid-template-columns: 480px 1fr;
       gap: 40px;
       padding: 40px;
-      max-width: 1900px;
+      max-width: 1700px;
       margin: 0 auto;
       align-items: start;
     }
@@ -43,7 +43,7 @@
       font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 2.5px;
+      letter-spacing: 2px;
       color: #64748b;
       transition: all 0.2s;
       cursor: pointer;
@@ -53,61 +53,58 @@
     .tab-btn.active {
       color: #3b82f6;
       background: white;
-      border-bottom: 3.5px solid #3b82f6;
-      margin-bottom: -2.5px;
+      border-bottom: 3px solid #3b82f6;
+      margin-bottom: -2px;
     }
 
     .form-content {
-      padding: 25px;
-      max-height: 88vh;
+      padding: 30px;
+      max-height: 85vh;
       overflow-y: auto;
     }
 
+    /* Restored Clean UI Styles */
     .input-group {
       margin-bottom: 24px;
       padding: 20px;
-      background: #f9fafb;
-      border-radius: 16px;
-      border: 1.5px solid #f1f5f9;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #f1f5f9;
     }
 
-    .input-group label {
+    .input-group label.group-label {
       display: block;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #1e3a8a;
-      margin-bottom: 12px;
-      border-left: 5px solid #3b82f6;
-      padding-left: 12px;
+      letter-spacing: 1px;
+      color: #3b82f6;
+      margin-bottom: 15px;
     }
 
     .main-input {
       width: 100%;
-      padding: 10px 14px;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      font-size: 13px;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
       font-weight: 600;
-      transition: all 0.2s;
       background: white;
+      transition: border-color 0.2s;
     }
 
     .main-input:focus {
       outline: none;
       border-color: #3b82f6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
     }
 
     .style-controls {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1.5px dashed #e5e7eb;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed #cbd5e1;
     }
 
     .style-item {
@@ -116,22 +113,21 @@
     }
 
     .style-item label {
-      font-size: 7px;
-      font-weight: 900;
-      color: #94a3b8;
-      margin-bottom: 5px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #64748b;
+      margin-bottom: 6px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .style-item input,
     .style-item select {
       width: 100%;
-      height: 32px;
-      padding: 4px 8px !important;
-      font-size: 10px !important;
+      height: 38px;
+      padding: 6px 12px !important;
+      font-size: 12px !important;
       font-weight: 700;
-      border: 1.5px solid #e5e7eb !important;
+      border: 2px solid #e2e8f0 !important;
       border-radius: 8px !important;
       background: white;
     }
@@ -146,7 +142,6 @@
       justify-content: center;
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
     }
 
     .inside {
@@ -290,51 +285,57 @@
   <div class="container-wrapper">
     <div class="editor-container">
       <div class="tabs">
-        <div class="tab-btn active" onclick="switchSide('front')">FRONT CONFIG</div>
-        <div class="tab-btn" onclick="switchSide('back')">BACK CONFIG</div>
+        <div class="tab-btn active" onclick="switchSide('front')">FRONT</div>
+        <div class="tab-btn" onclick="switchSide('back')">BACK</div>
       </div>
 
       <div class="form-content">
         <div id="form-front">
-          <!-- Global Front Style -->
+          <!-- Collage Name -->
           <div class="input-group">
-            <label>Institution Name</label>
+            <label class="group-label">Collage Name</label>
             <input type="text" id="in-collage" value="MOHASIN COLLAGE" class="main-input">
             <div class="style-controls" id="sc-collage"></div>
           </div>
 
+          <!-- Dept -->
           <div class="input-group">
-            <label>Sidebar Dept Title</label>
+            <label class="group-label">Department / Subject</label>
             <input type="text" id="in-dept" value="BANGLA DEPARTMENT" class="main-input">
             <div class="style-controls" id="sc-dept"></div>
           </div>
 
+          <!-- Student Image -->
           <div class="input-group">
-            <label>Student Photo</label>
+            <label class="group-label">Student Photo</label>
             <input type="file" id="up-photo" class="main-input">
             <div class="style-controls" id="sc-photo"></div>
           </div>
 
+          <!-- Student Name -->
           <div class="input-group">
-            <label>Student Name</label>
+            <label class="group-label">Student Name</label>
             <input type="text" id="in-name" value="MD Kayesur Rahman" class="main-input">
             <div class="style-controls" id="sc-name"></div>
           </div>
 
+          <!-- Roll -->
           <div class="input-group">
-            <label>Roll Number</label>
+            <label class="group-label">Class Roll</label>
             <input type="text" id="in-roll" value="176" class="main-input">
             <div class="style-controls" id="sc-roll"></div>
           </div>
 
+          <!-- Session -->
           <div class="input-group">
-            <label>Session Period</label>
+            <label class="group-label">Session</label>
             <input type="text" id="in-session" value="2025-2026" class="main-input">
             <div class="style-controls" id="sc-session"></div>
           </div>
 
+          <!-- Signature -->
           <div class="input-group">
-            <label>Identity Signature</label>
+            <label class="group-label">Principal Signature</label>
             <input type="file" id="up-sign" class="main-input">
             <div class="style-controls" id="sc-sign"></div>
           </div>
@@ -342,30 +343,30 @@
 
         <div id="form-back" class="hidden">
           <div class="input-group">
-            <label>Back side Title</label>
+            <label class="group-label">Back Side Title</label>
             <input type="text" id="in-backtitle" value="Subject Code" class="main-input">
             <div class="style-controls" id="sc-backtitle"></div>
           </div>
 
           <div class="input-group">
-            <label>Subject Listing</label>
+            <label class="group-label">Subjects Details</label>
             <div id="sub-container"></div>
             <button onclick="addS()"
-              class="w-full py-2 bg-blue-50 text-blue-600 rounded-xl text-[10px] font-black mt-2 tracking-widest">+ ADD
-              SUBJECT</button>
+              class="w-full py-3 bg-blue-50 text-blue-600 rounded-xl text-[11px] font-black mt-2 tracking-widest">+ ADD
+              NEW SUBJECT</button>
             <div class="style-controls" id="sc-subs"></div>
           </div>
 
           <div class="input-group">
-            <label>Return Policy Address</label>
+            <label class="group-label">Return Information</label>
             <input type="text" id="in-address" value="Syamnagor, Satkhira" class="main-input">
             <div class="style-controls" id="sc-return"></div>
           </div>
         </div>
 
         <button onclick="window.print()"
-          class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl mt-4 shadow-xl border-b-4 border-blue-800 active:border-b-0 active:translate-y-1 transition-all">GENERATE
-          FINAL PDF</button>
+          class="w-full bg-blue-600 text-white font-black py-5 rounded-2xl mt-4 shadow-xl active:translate-y-1 transition-all">GENERATE
+          & PRINT</button>
       </div>
     </div>
 
@@ -373,8 +374,7 @@
       <div class="full">
         <div class="inside" id="card-body"></div>
       </div>
-      <p class="text-gray-400 font-black text-[9px] mt-10 uppercase tracking-[5px] opacity-60">Interactive Preview
-        Engine v4.0</p>
+      <p class="text-gray-400 font-bold text-xs mt-10 uppercase tracking-widest opacity-70">LIVE PREVIEW</p>
     </div>
   </div>
 
@@ -388,10 +388,8 @@
           class="my-img" id="c-photo"></div>
     </div>
     <div class="c-el my-name" id="c-name"></div>
-    <div class="c-el details" id="c-details-wrap">
-      <div id="c-roll-line">Roll : <span id="c-roll"></span></div>
-      <div id="c-session-line">Session : <span id="c-session"></span></div>
-    </div>
+    <div class="c-el" id="c-roll-line">Roll : <span id="c-roll"></span></div>
+    <div class="c-el" id="c-session-line">Session : <span id="c-session"></span></div>
     <div id="c-sign-wrap" class="sin-img-container"><img src="sing.png" class="sin-img" id="c-sign">
       <div class="principal">Principal's signature</div>
     </div>
@@ -416,18 +414,18 @@
     let subs = [{ c: "211501", n: "History of Bangladesh" }, { c: "211001", n: "Culture of Bangladesh" }];
     let imgs = { photo: null, sign: null };
 
-    const defaultStyle = { size: 14, weight: 600, color: '#000000', align: 'center', mt: 0, mb: 0, ml: 0, mr: 0, w: 0, h: 0 };
+    const ds = { size: 14, weight: 600, color: '#000000', align: 'center', mt: 0, mb: 0, ml: 0, mr: 0, w: 0, h: 0 };
     const sc = {
-      collage: { ...defaultStyle, size: 16, weight: 800, mt: 5 },
-      name: { ...defaultStyle, size: 16, weight: 800, mt: 8 },
-      roll: { ...defaultStyle, size: 11, align: 'left', ml: 20, mt: 8 },
-      session: { ...defaultStyle, size: 11, align: 'left', ml: 20 },
-      dept: { ...defaultStyle, size: 11, weight: 800, color: '#1E3A8A' },
-      photo: { ...defaultStyle, size: 180, border: 2, color: '#0000FF', radius: 0 },
-      sign: { ...defaultStyle, size: 25, mb: 20 },
-      backtitle: { ...defaultStyle, size: 20, weight: 800, color: '#076cf9', mt: 5 },
-      subs: { ...defaultStyle, size: 11, align: 'left', mt: 15, ml: 15 },
-      return: { ...defaultStyle, size: 14, weight: 900, color: '#FF0000', mt: 0 }
+      collage: { ...ds, size: 16, weight: 800, mt: 5 },
+      name: { ...ds, size: 16, weight: 800, mt: 8 },
+      roll: { ...ds, size: 11, align: 'left', ml: 20, mt: 8 },
+      session: { ...ds, size: 11, align: 'left', ml: 20 },
+      dept: { ...ds, size: 11, weight: 800, color: '#1E3A8A' },
+      photo: { ...ds, size: 180, border: 2, color: '#0000FF', radius: 0 },
+      sign: { ...ds, size: 25, mb: 20 },
+      backtitle: { ...ds, size: 20, weight: 800, color: '#076cf9', mt: 5 },
+      subs: { ...ds, size: 11, align: 'left', mt: 15, ml: 15 },
+      return: { ...ds, size: 14, weight: 900, color: '#FF0000' }
     };
 
     function renderStyles() {
@@ -445,10 +443,10 @@
                     </select></div>
                     <div class="style-item"><label>Width</label><input type="number" data-key="${key}" data-prop="w" value="${conf.w}"></div>
                     <div class="style-item"><label>Height</label><input type="number" data-key="${key}" data-prop="h" value="${conf.h}"></div>
-                    <div class="style-item"><label>Top</label><input type="number" data-key="${key}" data-prop="mt" value="${conf.mt}"></div>
-                    <div class="style-item"><label>Bottom</label><input type="number" data-key="${key}" data-prop="mb" value="${conf.mb}"></div>
-                    <div class="style-item"><label>Left</label><input type="number" data-key="${key}" data-prop="ml" value="${conf.ml}"></div>
-                    <div class="style-item"><label>Right</label><input type="number" data-key="${key}" data-prop="mr" value="${conf.mr}"></div>
+                    <div class="style-item"><label>Top Margin</label><input type="number" data-key="${key}" data-prop="mt" value="${conf.mt}"></div>
+                    <div class="style-item"><label>Bottom Margin</label><input type="number" data-key="${key}" data-prop="mb" value="${conf.mb}"></div>
+                    <div class="style-item"><label>Left Margin</label><input type="number" data-key="${key}" data-prop="ml" value="${conf.ml}"></div>
+                    <div class="style-item"><label>Right Margin</label><input type="number" data-key="${key}" data-prop="mr" value="${conf.mr}"></div>
                 `;
         if (key === 'photo') {
           html += `
