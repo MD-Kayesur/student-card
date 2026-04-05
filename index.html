@@ -4,466 +4,518 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Student Card</title>
+  <title>Dynamic Student Card Generator</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    section {
-      margin-top: 100px;
+    body {
+      background-color: #f3f4f6;
+      font-family: 'Inter', sans-serif;
     }
 
+    .container-wrapper {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 40px;
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .editor-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .tabs {
+      display: flex;
+      background: #f8fafc;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 18px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #64748b;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      color: #3b82f6;
+      background: white;
+      border-bottom: 3px solid #3b82f6;
+      margin-bottom: -2px;
+    }
+
+    .form-content {
+      padding: 30px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 13px;
+      transition: border-color 0.2s;
+      background-color: #f8fafc;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    /* Original Card Styles */
     .full {
       height: 600px;
       width: 500px;
       background-color: blue;
-      margin: 0 auto;
-      padding: 60px;
-
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
+      padding: 20px;
     }
 
     .inside {
       background-color: white;
       padding: 10px;
-      height: 460px;
-      width: 260px;
-      margin: auto;
-  
+      height: 480px;
+      width: 280px;
       text-align: center;
-      border-radius: 10px 10px 10px 10px;
-    }
-
-    .img {
-      height: 0px;
-      width: 50px;
-      margin: 5px auto;
-    }
-
-    .collage-name {
-      font-size: large;
-      font-weight: 700;
-      margin-top: 80px;
-    }
-
-    .img-section {
-      display: flex;
-      height: auto;
-margin-left: -20px;
-margin-top: -20px;
-       padding: 25px;
-      align-items: center;
-      justify-items: center;
-
-
-    }
-
-    .img-text {
-
-      height: 100%;
-      color: blue;
-      font-weight: 600;
-
-      rotate: -90deg;
-
-
-    }
-
-     
-    .my-img {
+      border-radius: 12px;
       position: relative;
-      left: -10px;
-      height:60%;
-      width: 60%;
-    }
-
-    .my-name {
-      font-weight: 700;
-      margin-top: -20px;
-      
-    }
-
-    .details {
-      font-weight: 500;
-      text-align: left;
-      margin-left: 20px;
-    }
-
-    .sin-img {
-      justify-content: center;
+      overflow: hidden;
       display: flex;
-    }
-
-    .principal {
-      font-weight: 700;
-    }
-
-    /* span styles */
-    .roll {
-      margin-left: 25px;
-    }
-
-    .sesion {
-      margin-left: 38px;
-    }
-
-    .level {
-      margin-left: 10px;
-    }
-
-    .valid {
-      margin-left: 40px;
-    }
-
-    .again-full {
-      position: relative;
+      flex-direction: column;
     }
 
     .back-card::before {
-      padding: 10px;
-      height: 460px;
-      width: 260px;
-      margin: auto;
+      content: "";
       position: absolute;
-      border-radius: 50px 50px 0px 0px;
-      content: " ";
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
+      inset: 0;
       background-image: url("Screenshot_3.png");
       background-repeat: no-repeat;
       background-size: cover;
       opacity: 0.2;
       z-index: 1;
-
     }
 
-    .code{
-      font-weight: 700;
-      font-size: x-large;
+    .collage-logo-img {
+      height: 40px;
+      margin: 0 auto;
+      z-index: 2;
+      position: relative;
+    }
+
+    .collage-name {
+      font-size: 16px;
+      font-weight: 800;
+      margin-top: 5px;
+      color: #000;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Front specific */
+    .img-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 220px;
+      margin-top: 15px;
+      padding: 0 10px;
+      gap: 15px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .img-text {
+      color: blue;
+      font-weight: 800;
+      font-size: 11px;
+      white-space: nowrap;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-align: center;
+      height: 100%;
+    }
+
+    .my-img-container {
+      width: 180px;
+      height: 180px;
+      border: 2px solid blue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: #f8fafc;
+    }
+
+    .my-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .my-name {
+      font-weight: 800;
+      font-size: 16px;
       margin-top: 10px;
-      color: #076cf9;
-      
+      color: #000;
+      z-index: 2;
+      position: relative;
     }
-    .code::after{
-      content: "";
-      position: absolute;
-      width: 190px;
-      height: 4px;
-      background-color: #02db2d;
-      margin-left: -100px;
-      border-radius: 40px;
-    }
-    .subjects{
-      font-weight: 500;
+
+    .details {
+      font-weight: 600;
       text-align: left;
       margin-left: 20px;
       margin-top: 10px;
+      font-size: 11px;
+      line-height: 1.6;
+      z-index: 2;
+      position: relative;
     }
-    .found{
-      font-weight: 900;
-      font-size: large;
-      margin-top: 110px;
-      color: #ff0000;
+
+    .sin-img-container {
+      margin-top: auto;
+      padding-bottom: 20px;
+      z-index: 2;
+      position: relative;
     }
-    .found::after{
+
+    .sin-img {
+      height: 25px;
+      margin: 0 auto;
+    }
+
+    .principal {
+      font-weight: 800;
+      font-size: 10px;
+      margin-top: 5px;
+      border-top: 1px solid #000;
+      display: inline-block;
+      padding-top: 5px;
+      width: 80%;
+    }
+
+    /* Back specific */
+    .back-content {
+      z-index: 2;
+      position: relative;
+      height: 100%;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .back-title {
+      font-weight: 800;
+      font-size: 20px;
+      color: #076cf9;
+      margin-top: 10px;
+    }
+
+    .back-title::after {
       content: "";
-      position: absolute;
-      width: 230px;
-      height: 2px;
-      background-color: #010101;
-      margin-left: -120px;
-
-    }
-    .number{
-      font-weight: 500;
-      color: #ff0000;
-    }
-    .address{
-      font-weight: 600;
+      display: block;
+      width: 140px;
+      height: 3px;
+      background: #02db2d;
+      margin: 4px auto;
+      border-radius: 10px;
     }
 
-    .web{
+    .subjects-list {
+      text-align: left;
+      font-size: 11px;
       font-weight: 600;
       margin-top: 20px;
+      padding: 0 10px;
+      line-height: 1.8;
+    }
+
+    .return-section {
+      margin-top: auto;
+      border-top: 1.5px solid #000;
+      padding-top: 8px;
+      margin-bottom: 10px;
+    }
+
+    .return-title {
+      color: red;
+      font-weight: 900;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .address-text {
+      font-weight: 700;
+      font-size: 10px;
+    }
+
+    .contact-info {
+      font-size: 9px;
+      font-weight: 700;
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+
+    .contact-info span.phone {
+      color: red;
+    }
+
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
 
 <body>
-  <!-- front part -->
-  <section class="">
-    <div class=" full">
-      <div class="inside">
-        <div class="img">
-          <img src="Screenshot_3.png" alt="">
-        </div>
-        <div class="collage-name">
-          <h1>MOHASIN COLLAGE</h1>
-        </div>
-        <div class=" img-section ">
-          <div class=" img-text">BANGLA DEPARTMENT </div>
-          <div class="my-img "><img src="WhatsApp Image 2024-10-18 at 22.53.53_df57dcee.jpg " alt=""></div>
-        </div>
-        <div class="my-name">
-          <h1> MD Kayesur Rahman</h1>
-        </div>
-        <div class="details">
-          <h4>Class Roll <span class="roll">: 176</span></h4>
-          <h4>Seasion <span class="sesion">: 2025-2026</span></h4>
-          <h4>Study Level <span class="level">: Honours </span> </h4>
-          <h4>Blood Group <span class="blood">: B+</span></h4>
-          <h4>Validity <span class="valid">: 2028</span></h4>
-        </div>
-        <div class="sin-img">
-          <img src="sing.png" alt="">
-        </div>
-        <div class="principal">
-          <h1> Principal's signature</h1>
-        </div>
-
+  <div class="container-wrapper">
+    <!-- Editor Section -->
+    <div class="editor-container">
+      <div class="tabs">
+        <div class="tab-btn active" id="tab-front" onclick="switchSide('front')">FRONT SIDE</div>
+        <div class="tab-btn" id="tab-back" onclick="switchSide('back')">BACK SIDE</div>
       </div>
 
-    </div>
-  </section>
-
-
-
-  <!-- sabina -->
-
-
-  <!-- <section>
-    <div class=" full">
-      <div class="inside">
-        <div class="img">
-          <img src="Screenshot_3.png" alt="">
-        </div>
-        <div class="collage-name">
-          <h1> MHASHIN COLLAGE</h1>
-        </div>
-        <div class=" img-section ">
-          <div class=" img-text">POLITICAL SCIENCE</div>
-          <div class="my-img "><img src="sbina.png-removebg-preview.png" alt=""></div>
-        </div>
-        <div class="my-name">
-          <h1> Sabina Khatun</h1>
-        </div>
-        <div class="details">
-          <h4>Class Roll <span class="roll">: 115</span></h4>
-          <h4>Seasion <span class="sesion">: 2026-2027</span></h4>
-          <h4>Study Level <span class="level">: Honours</span> </h4>
-          <h4>Blood Group <span class="blood">: B+</span></h4>
-          <h4>Validity <span class="valid">: 2028</span></h4>
-        </div>
-        <div class="sin-img">
-          <img src="sing.png" alt="">
-        </div>
-        <div class="principal">
-          <h1> Principal's signature</h1>
-        </div>
-
-      </div>
-
-    </div>
-  </section> -->
-
-  <!-- sabina -->
-
-
-   <section>
-    <div class="full again-full">
-      <div class="inside ">
-        <div class="back-card">
-          <div class="code">
-            <h1>Subject Code </h1>
+      <div class="form-content">
+        <!-- Front Side Form -->
+        <div id="form-front">
+          <div class="input-group">
+            <label>Collage Name</label>
+            <input type="text" id="input-collage" value="MOHASIN COLLAGE">
           </div>
-          <div class="subjects">
-            <h1> 221903 Political Economy</h1>
-            <h1> 221901  Political & Develop</h1>
-            <h1>221109  English</h1>
-            <h1> 221907  Women in Politics</h1>
-            <h1>221905 Political Thought </h1>
-             
-
+          <div class="input-group">
+            <label>Department / Subject</label>
+            <input type="text" id="input-dept" value="BANGLA DEPARTMENT">
           </div>
-          <div class="found">
-            <h1>If Found, Please Return To</h1>
-            
+          <div class="input-group">
+            <label>Student Photo</label>
+            <input type="file" id="input-photo">
           </div>
-          <div class="address">
-            <h1>Syamnagor, Satkhira</h1>
-            <h1>Phone   <span class="number">   :   +88 01933-564335</span></h1>
+          <div class="input-group">
+            <label>Student Name</label>
+            <input type="text" id="input-name" value="MD Kayesur Rahman">
           </div>
-          <div class="web">
-            <h1>mohasincollage@gmail.com</h1>
-            <h1>www.mohasin collage.edu.bd</h1>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="input-group"><label>Roll</label><input type="text" id="input-roll" value="176"></div>
+            <div class="input-group"><label>Session</label><input type="text" id="input-session" value="2025-2026">
+            </div>
           </div>
-
-
+          <div class="grid grid-cols-2 gap-4">
+            <div class="input-group"><label>Level</label><input type="text" id="input-level" value="Honours"></div>
+            <div class="input-group">
+              <label>Blood Group</label>
+              <select id="input-blood">
+                <option value="B+" selected>B+</option>
+                <option value="A+">A+</option>
+                <option value="O+">O+</option>
+                <option value="AB+">AB+</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group"><label>Validity</label><input type="text" id="input-valid" value="2028"></div>
+          <div class="input-group"><label>Principal's Signature</label><input type="file" id="input-sign"></div>
         </div>
 
+        <!-- Back Side Form -->
+        <div id="form-back" class="hidden">
+          <div class="input-group">
+            <label>Subject Codes & Names (One per line)</label>
+            <textarea id="input-subjects" rows="6" placeholder="211501 History of Bangladesh...">211501 History of Bangladesh
+211001 Culture of Bangladesh
+211003 Language of Bangladesh
+211005 Bangla Poetry
+211007 Bangla Novel</textarea>
+          </div>
+          <div class="input-group">
+            <label>Return Address</label>
+            <input type="text" id="input-address" value="Syamnagor, Satkhira">
+          </div>
+          <div class="input-group">
+            <label>Phone Number</label>
+            <input type="text" id="input-phone" value="+88 01926-360430">
+          </div>
+          <div class="input-group">
+            <label>Portal / Email</label>
+            <input type="text" id="input-email" value="mohasincollage@gmail.com">
+          </div>
+          <div class="input-group">
+            <label>Website</label>
+            <input type="text" id="input-web" value="www.mohasin collage.edu.bd">
+          </div>
+        </div>
+
+        <button onclick="window.print()"
+          class="w-full bg-blue-600 text-white font-black py-4 rounded-xl mt-4 hover:bg-blue-700 transition-all shadow-lg shadow-blue-200">
+          PRINT SIDE
+        </button>
       </div>
     </div>
 
-  </section>
-
-
-  <!-- back part -->
-  <section class=" ">
-    <div class="full again-full">
-      <div class="inside ">
-        <div class="back-card">
-          <div class="code">
-            <h1>Subject Code </h1>
-          </div>
-          <div class="subjects">
-            <h1>211501 History of Bangladesh</h1>
-            <h1>211001 Culture of Bangladesh</h1>
-            <h1>211003 Langua of Bangladesh</h1>
-            <h1>211005 Bangla Poetry</h1>
-            <h1>211007 Bangla Novel</h1>
-             
-
-          </div>
-          <div class="found">
-            <h1>If Found, Please Return To</h1>
-            
-          </div>
-          <div class="address">
-            <h1>Syamnagor, Satkhira</h1>
-            <h1>Phone   <span class="number">   :   +88 01926-360430</span></h1>
-          </div>
-          <div class="web">
-            <h1>mohasincollage@gmail.com</h1>
-            <h1>www.mohasin collage.edu.bd</h1>
-          </div>
-
-
+    <!-- Preview Section -->
+    <div class="flex flex-col items-center">
+      <div class="full">
+        <div class="inside" id="card-body">
+          <!-- Dynamic content will be injected here -->
         </div>
-
       </div>
+      <p class="text-gray-400 font-bold text-xs mt-8 uppercase tracking-widest">Live <span id="label-side">Front</span>
+        Preview</p>
     </div>
-
-  </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- ebrahim -->
-  <section class=" ">
-    <div class=" full">
-      <div class="inside">
-        <div class="img">
-          <img src="Screenshot_3.png" alt="">
-        </div>
-        <div class="collage-name">
-          <h1> BANGLA  Collage</h1>
-        </div>
-        <div class=" img-section">
-          <div class=" img-text">BANGLA DEPARMENT </div>
-          <div class="my-img"><img src="WhatsApp_-ibrahim-removebg-preview.png" alt=""></div>
-        </div>
-        <div class="my-name">
-          <h1>MD Ebrahim Hossan </h1>
-        </div>
-        <div class="details">
-          <h4>Class Roll <span class="roll">: 151</span></h4>
-          <h4>Seasion <span class="sesion">: 2026-2027</span></h4>
-          <h4>Study Level <span class="level">: Honours </span> </h4>
-          <h4>Blood Group <span class="blood">: AB+</span></h4>
-          <h4>Validity <span class="valid">: 2027</span></h4>
-        </div>
-        <div class="sin-img">
-          <img src="sing.png" alt="">
-        </div>
-        <div class="principal">
-          <h1> Principal's signature</h1>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- srabon -->
-
-  <section class="hidden">
-    <div class=" full">
-      <div class="inside">
-        <div class="img">
-          <img src="Screenshot_3.png" alt="">
-        </div>
-        <div class="collage-name">
-          <h1> BANGLA  Collage</h1>
-        </div>
-        <div class=" img-section">
-          <div class=" img-text">BANGLA DEPARMENT </div>
-          <div class="my-img"><img src="jahangir.jpg" alt=""></div>
-        </div>
-        <div class="my-name">
-          <h1>MD Roshid Khan </h1>
-        </div>
-        <div class="details">
-          <h4>Class Roll <span class="roll">: 102</span></h4>
-          <h4>Seasion <span class="sesion">: 2024-2025</span></h4>
-          <h4>Study Level <span class="level">: Inter </span> </h4>
-          <h4>Blood Group <span class="blood">: AB+</span></h4>
-          <h4>Validity <span class="valid">: 2026</span></h4>
-        </div>
-        <div class="sin-img">
-          <img src="sing.png" alt="">
-        </div>
-        <div class="principal">
-          <h1 style="padding-bottom: 60px;"> Principal's signature</h1>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
- 
-  
-
-
-
-
-
-
-<style>
-
-.hi{
-  width: 500px;
- margin: auto;
- margin-top: 200px;
- margin-bottom: 100px;
-  
-}
-
-</style>
-
-
-
-
-
-
-
-  <div >
-    <img class="hi" src="/484553902_1019166780114644_7597381673666764601_n.jpg" alt="">
   </div>
 
+  <!-- Templates -->
+  <template id="tpl-front">
+    <div class="mt-4"><img src="Screenshot_3.png" class="collage-logo-img"></div>
+    <div class="collage-name">
+      <h1 id="card-collage">MOHASIN COLLAGE</h1>
+    </div>
+    <div class="img-section">
+      <div class="img-text" id="card-dept">BANGLA DEPARTMENT</div>
+      <div class="my-img-container"><img src="WhatsApp Image 2024-10-18 at 22.53.53_df57dcee.jpg" class="my-img"
+          id="card-photo"></div>
+    </div>
+    <div class="my-name">
+      <h1 id="card-name">MD Kayesur Rahman</h1>
+    </div>
+    <div class="details">
+      <h4>Class Roll <span id="card-roll" style="margin-left: 20px;">: 176</span></h4>
+      <h4>Session <span id="card-session" style="margin-left: 33px;">: 2025-2026</span></h4>
+      <h4>Study Level <span id="card-level" style="margin-left: 17px;">: Honours</span></h4>
+      <h4>Blood Group <span id="card-blood" style="margin-left: 14px;">: B+</span></h4>
+      <h4>Validity <span id="card-valid" style="margin-left: 41px;">: 2028</span></h4>
+    </div>
+    <div class="sin-img-container">
+      <img src="sing.png" class="sin-img" id="card-sign">
+      <div class="principal">Principal's signature</div>
+    </div>
+  </template>
 
+  <template id="tpl-back">
+    <div class="back-card back-content">
+      <div class="back-title">Subject Code</div>
+      <div class="subjects-list" id="card-subjects"></div>
+      <div class="return-section">
+        <div class="return-title">If Found, Please Return To</div>
+        <div class="address-text" id="card-address">Syamnagor, Satkhira</div>
+      </div>
+      <div class="contact-info">
+        <div>Phone <span class="phone" id="card-phone">: +88 01926-360430</span></div>
+        <div id="card-email">mohasincollage@gmail.com</div>
+        <div id="card-web">www.mohasin collage.edu.bd</div>
+      </div>
+    </div>
+  </template>
 
+  <script>
+    let currentSide = 'front';
+    let photos = { front: null, sign: null };
+
+    function switchSide(side) {
+      currentSide = side;
+      document.getElementById('tab-front').classList.toggle('active', side === 'front');
+      document.getElementById('tab-back').classList.toggle('active', side === 'back');
+      document.getElementById('form-front').classList.toggle('hidden', side === 'back');
+      document.getElementById('form-back').classList.toggle('hidden', side === 'front');
+      document.getElementById('label-side').textContent = side.charAt(0).toUpperCase() + side.slice(1);
+
+      renderCard();
+    }
+
+    function renderCard() {
+      const container = document.getElementById('card-body');
+      const tpl = document.getElementById(currentSide === 'front' ? 'tpl-front' : 'tpl-back').content.cloneNode(true);
+      container.innerHTML = '';
+      container.appendChild(tpl);
+
+      if (currentSide === 'front') {
+        updateFront();
+      } else {
+        updateBack();
+      }
+    }
+
+    function updateFront() {
+      setT('card-collage', getV('input-collage'));
+      setT('card-dept', getV('input-dept'));
+      setT('card-name', getV('input-name'));
+      setT('card-roll', ': ' + getV('input-roll'));
+      setT('card-session', ': ' + getV('input-session'));
+      setT('card-level', ': ' + getV('input-level'));
+      setT('card-blood', ': ' + getV('input-blood'));
+      setT('card-valid', ': ' + getV('input-valid'));
+      if (photos.front) document.getElementById('card-photo').src = photos.front;
+      if (photos.sign) document.getElementById('card-sign').src = photos.sign;
+    }
+
+    function updateBack() {
+      const lines = getV('input-subjects').split('\n');
+      const list = document.getElementById('card-subjects');
+      list.innerHTML = lines.map(l => `<div>${l}</div>`).join('');
+      setT('card-address', getV('input-address'));
+      setT('card-phone', ': ' + getV('input-phone'));
+      setT('card-email', getV('input-email'));
+      setT('card-web', getV('input-web'));
+    }
+
+    function getV(id) { return document.getElementById(id).value; }
+    function setT(id, val) { document.getElementById(id).textContent = val; }
+
+    // Event listeners for all inputs
+    document.addEventListener('input', (e) => {
+      if (e.target.id.startsWith('input-')) renderCard();
+    });
+
+    // Image Handling
+    function handleImg(inputId, key) {
+      document.getElementById(inputId).addEventListener('change', function (e) {
+        if (this.files && this.files[0]) {
+          const reader = new FileReader();
+          reader.onload = (ex) => {
+            photos[key] = ex.target.result;
+            renderCard();
+          };
+          reader.readAsDataURL(this.files[0]);
+        }
+      });
+    }
+
+    handleImg('input-photo', 'front');
+    handleImg('input-sign', 'sign');
+
+    // Init
+    switchSide('front');
+  </script>
 </body>
 
 </html>
