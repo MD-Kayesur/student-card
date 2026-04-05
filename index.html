@@ -16,10 +16,10 @@
 
     .container-wrapper {
       display: grid;
-      grid-template-columns: 500px 1fr;
+      grid-template-columns: 480px 1fr;
       gap: 40px;
       padding: 40px;
-      max-width: 1800px;
+      max-width: 1700px;
       margin: 0 auto;
       align-items: start;
     }
@@ -64,21 +64,52 @@
     }
 
     .input-group {
-      margin-bottom: 24px;
-      padding: 20px;
+      margin-bottom: 20px;
+      padding: 18px;
       background: #f8fafc;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid #f1f5f9;
+      position: relative;
     }
 
-    .input-group label.group-label {
-      display: block;
+    .group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .group-label {
       font-size: 11px;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: #3b82f6;
-      margin-bottom: 15px;
+    }
+
+    /* New Style Toggle Button */
+    .style-toggle-btn {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .style-toggle-btn:hover {
+      background: #bae6fd;
+    }
+
+    .style-toggle-btn.active {
+      background: #3b82f6;
+      color: white;
     }
 
     .main-input {
@@ -89,7 +120,7 @@
       font-size: 14px;
       font-weight: 600;
       background: white;
-      transition: border-color 0.2s;
+      transition: all 0.2s;
     }
 
     .main-input:focus {
@@ -98,13 +129,18 @@
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
     }
 
-    .style-controls {
-      display: grid;
+    /* Collapsible Style Panel */
+    .style-panel {
+      display: none;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       margin-top: 15px;
       padding-top: 15px;
       border-top: 1px dashed #cbd5e1;
+    }
+
+    .style-panel.show {
+      display: grid;
     }
 
     .style-item {
@@ -135,14 +171,13 @@
     /* Card Styles */
     .full {
       height: 600px;
-      width: 500px;
+      width: 520px;
       background-color: blue;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     }
 
     .inside {
@@ -292,83 +327,88 @@
 
       <div class="form-content">
         <div id="form-front">
-          <!-- Collage Name -->
-          <div class="input-group">
-            <label class="group-label">Collage Name</label>
+          <!-- Groups with Toggle Buttons -->
+          <div class="input-group" data-key="collage">
+            <div class="group-header"><span class="group-label">Collage Name</span><button class="style-toggle-btn"
+                onclick="toggleS('collage')"><i class="fas fa-cog"></i> STYLES</button></div>
             <input type="text" id="in-collage" value="MOHASIN COLLAGE" class="main-input">
-            <div class="style-controls" id="sc-collage"></div>
+            <div class="style-panel" id="sc-collage"></div>
           </div>
 
-          <!-- Dept -->
-          <div class="input-group">
-            <label class="group-label">Department / Subject</label>
+          <div class="input-group" data-key="dept">
+            <div class="group-header"><span class="group-label">Sidebar Dept Title</span><button
+                class="style-toggle-btn" onclick="toggleS('dept')"><i class="fas fa-cog"></i> STYLES</button></div>
             <input type="text" id="in-dept" value="BANGLA DEPARTMENT" class="main-input">
-            <div class="style-controls" id="sc-dept"></div>
+            <div class="style-panel" id="sc-dept"></div>
           </div>
 
-          <!-- Student Image -->
-          <div class="input-group">
-            <label class="group-label">Student Photo</label>
+          <div class="input-group" data-key="photo">
+            <div class="group-header"><span class="group-label">Student Photo</span><button class="style-toggle-btn"
+                onclick="toggleS('photo')"><i class="fas fa-cog"></i> STYLES</button></div>
             <input type="file" id="up-photo" class="main-input">
-            <div class="style-controls" id="sc-photo"></div>
+            <div class="style-panel" id="sc-photo"></div>
           </div>
 
-          <!-- Student Name -->
-          <div class="input-group">
-            <label class="group-label">Student Name</label>
+          <div class="input-group" data-key="name">
+            <div class="group-header"><span class="group-label">Student Name</span><button class="style-toggle-btn"
+                onclick="toggleS('name')"><i class="fas fa-cog"></i> STYLES</button></div>
             <input type="text" id="in-name" value="MD Kayesur Rahman" class="main-input">
-            <div class="style-controls" id="sc-name"></div>
+            <div class="style-panel" id="sc-name"></div>
           </div>
 
-          <!-- Roll -->
-          <div class="input-group">
-            <label class="group-label">Class Roll</label>
-            <input type="text" id="in-roll" value="176" class="main-input">
-            <div class="style-controls" id="sc-roll"></div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="input-group" data-key="roll">
+              <div class="group-header"><span class="group-label">Roll</span><button class="style-toggle-btn"
+                  onclick="toggleS('roll')"><i class="fas fa-cog"></i></button></div>
+              <input type="text" id="in-roll" value="176" class="main-input">
+              <div class="style-panel" id="sc-roll"></div>
+            </div>
+            <div class="input-group" data-key="session">
+              <div class="group-header"><span class="group-label">Session</span><button class="style-toggle-btn"
+                  onclick="toggleS('session')"><i class="fas fa-cog"></i></button></div>
+              <input type="text" id="in-session" value="2025-2026" class="main-input">
+              <div class="style-panel" id="sc-session"></div>
+            </div>
           </div>
 
-          <!-- Session -->
-          <div class="input-group">
-            <label class="group-label">Session</label>
-            <input type="text" id="in-session" value="2025-2026" class="main-input">
-            <div class="style-controls" id="sc-session"></div>
-          </div>
-
-          <!-- Signature -->
-          <div class="input-group">
-            <label class="group-label">Principal Signature</label>
+          <div class="input-group" data-key="sign">
+            <div class="group-header"><span class="group-label">Principal Signature</span><button
+                class="style-toggle-btn" onclick="toggleS('sign')"><i class="fas fa-cog"></i> STYLES</button></div>
             <input type="file" id="up-sign" class="main-input">
-            <div class="style-controls" id="sc-sign"></div>
+            <div class="style-panel" id="sc-sign"></div>
           </div>
         </div>
 
         <div id="form-back" class="hidden">
-          <div class="input-group">
-            <label class="group-label">Back Side Header</label>
+          <div class="input-group" data-key="backtitle">
+            <div class="group-header"><span class="group-label">Back Side Header</span><button class="style-toggle-btn"
+                onclick="toggleS('backtitle')"><i class="fas fa-cog"></i> STYLES</button></div>
             <input type="text" id="in-backtitle" value="Subject Code" class="main-input">
-            <div class="style-controls" id="sc-backtitle"></div>
+            <div class="style-panel" id="sc-backtitle"></div>
           </div>
 
-          <div class="input-group">
-            <label class="group-label">Subjects Details</label>
+          <div class="input-group" data-key="subs">
+            <div class="group-header"><span class="group-label">Subjects Details</span><button class="style-toggle-btn"
+                onclick="toggleS('subs')"><i class="fas fa-cog"></i> STYLES</button></div>
             <div id="sub-container"></div>
             <button onclick="addS()"
               class="w-full py-3 bg-blue-50 text-blue-600 rounded-xl text-[11px] font-black mt-2 tracking-widest">+ ADD
               NEW SUBJECT</button>
-            <div class="style-controls" id="sc-subs"></div>
+            <div class="style-panel" id="sc-subs"></div>
           </div>
 
-          <div class="input-group">
-            <label class="group-label">Return Information</label>
+          <div class="input-group" data-key="return">
+            <div class="group-header"><span class="group-label">Return Information</span><button
+                class="style-toggle-btn" onclick="toggleS('return')"><i class="fas fa-cog"></i> STYLES</button></div>
             <input type="text" id="in-address" value="Syamnagor, Satkhira" class="main-input">
-            <div class="style-controls" id="sc-return"></div>
+            <div class="style-panel" id="sc-return"></div>
           </div>
 
-          <!-- New Phone Field -->
-          <div class="input-group">
-            <label class="group-label">Back sidebar Contact (Phone)</label>
+          <div class="input-group" data-key="phone">
+            <div class="group-header"><span class="group-label">Emergency Contact Line</span><button
+                class="style-toggle-btn" onclick="toggleS('phone')"><i class="fas fa-cog"></i> STYLES</button></div>
             <input type="text" id="in-phone" value="+8801700000000" class="main-input">
-            <div class="style-controls" id="sc-phone"></div>
+            <div class="style-panel" id="sc-phone"></div>
           </div>
         </div>
 
@@ -386,7 +426,6 @@
     </div>
   </div>
 
-  <!-- Templates -->
   <template id="t-front">
     <div class="mt-4"><img src="Screenshot_3.png" class="collage-logo-img"></div>
     <div class="c-el collage-name" id="c-collage"></div>
@@ -432,10 +471,19 @@
       photo: { ...ds, size: 180, border: 2, color: '#0000FF', radius: 0 },
       sign: { ...ds, size: 25, mb: 20 },
       backtitle: { ...ds, size: 20, weight: 800, color: '#076cf9', mt: 5 },
-      subs: { ...ds, size: 11, align: 'left', mt: 15, ml: 15 },
+      subs: { ...ds, size: 11, align: 'left', mt: 15, ml: 15, weight: 800 },
       return: { ...ds, size: 14, weight: 900, color: '#FF0000' },
-      phone: { ...ds, size: 12, mt: 10, align: 'left', ml: 10 }
+      phone: { ...ds, size: 12, mt: 10, align: 'left', ml: 10, weight: 800 }
     };
+
+    function toggleS(key) {
+      const panel = document.getElementById(`sc-${key}`);
+      const btn = panel.previousElementSibling.previousElementSibling.querySelector('.style-toggle-btn') || panel.parentElement.querySelector('.style-toggle-btn');
+      const isHidden = panel.style.display === 'none' || panel.style.display === '';
+      panel.style.display = isHidden ? 'grid' : 'none';
+      btn.classList.toggle('active', isHidden);
+      btn.innerHTML = isHidden ? '<i class="fas fa-times"></i> HIDE' : '<i class="fas fa-cog"></i> STYLES';
+    }
 
     function renderStyles() {
       Object.keys(sc).forEach(key => {
@@ -528,7 +576,7 @@
     function uBack() {
       setStyles('c-backtitle', 'in-backtitle', 'backtitle');
       setStyles('c-subs', null, 'subs');
-      document.getElementById('c-subs').innerHTML = subs.map(s => `<div>${s.c} ${s.n}</div>`).join('');
+      document.getElementById('c-subs').innerHTML = subs.map(s => `<div style="font-weight:${sc.subs.weight}">${s.c} ${s.n}</div>`).join('');
 
       setStyles('c-re-title', null, 'return');
       setStyles('c-address', 'in-address', 'return');
