@@ -16,10 +16,10 @@
 
     .container-wrapper {
       display: grid;
-      grid-template-columns: 480px 1fr;
+      grid-template-columns: 500px 1fr;
       gap: 40px;
       padding: 40px;
-      max-width: 1700px;
+      max-width: 1800px;
       margin: 0 auto;
       align-items: start;
     }
@@ -53,8 +53,8 @@
     .tab-btn.active {
       color: #3b82f6;
       background: white;
-      border-bottom: 3px solid #3b82f6;
-      margin-bottom: -2px;
+      border-bottom: 3.5px solid #3b82f6;
+      margin-bottom: -3.5px;
     }
 
     .form-content {
@@ -63,7 +63,6 @@
       overflow-y: auto;
     }
 
-    /* Restored Clean UI Styles */
     .input-group {
       margin-bottom: 24px;
       padding: 20px;
@@ -85,8 +84,8 @@
     .main-input {
       width: 100%;
       padding: 12px 16px;
-      border: 2px solid #e2e8f0;
-      border-radius: 10px;
+      border: 2.5px solid #e2e8f0;
+      border-radius: 12px;
       font-size: 14px;
       font-weight: 600;
       background: white;
@@ -96,12 +95,13 @@
     .main-input:focus {
       outline: none;
       border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
     }
 
     .style-controls {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      gap: 12px;
       margin-top: 15px;
       padding-top: 15px;
       border-top: 1px dashed #cbd5e1;
@@ -142,6 +142,7 @@
       justify-content: center;
       border-radius: 20px;
       padding: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     }
 
     .inside {
@@ -285,8 +286,8 @@
   <div class="container-wrapper">
     <div class="editor-container">
       <div class="tabs">
-        <div class="tab-btn active" onclick="switchSide('front')">FRONT</div>
-        <div class="tab-btn" onclick="switchSide('back')">BACK</div>
+        <div class="tab-btn active" onclick="switchSide('front')">FRONT CONFIG</div>
+        <div class="tab-btn" onclick="switchSide('back')">BACK CONFIG</div>
       </div>
 
       <div class="form-content">
@@ -343,7 +344,7 @@
 
         <div id="form-back" class="hidden">
           <div class="input-group">
-            <label class="group-label">Back Side Title</label>
+            <label class="group-label">Back Side Header</label>
             <input type="text" id="in-backtitle" value="Subject Code" class="main-input">
             <div class="style-controls" id="sc-backtitle"></div>
           </div>
@@ -361,6 +362,13 @@
             <label class="group-label">Return Information</label>
             <input type="text" id="in-address" value="Syamnagor, Satkhira" class="main-input">
             <div class="style-controls" id="sc-return"></div>
+          </div>
+
+          <!-- New Phone Field -->
+          <div class="input-group">
+            <label class="group-label">Back sidebar Contact (Phone)</label>
+            <input type="text" id="in-phone" value="+8801700000000" class="main-input">
+            <div class="style-controls" id="sc-phone"></div>
           </div>
         </div>
 
@@ -404,7 +412,7 @@
         <div class="c-el address-text" id="c-address"></div>
       </div>
       <div class="c-el contact-info" id="c-contacts">
-        <div>Phone : <span class="phone" id="c-phone"></span></div>
+        <div>Phone : <span id="cc-phone"></span></div>
       </div>
     </div>
   </template>
@@ -425,7 +433,8 @@
       sign: { ...ds, size: 25, mb: 20 },
       backtitle: { ...ds, size: 20, weight: 800, color: '#076cf9', mt: 5 },
       subs: { ...ds, size: 11, align: 'left', mt: 15, ml: 15 },
-      return: { ...ds, size: 14, weight: 900, color: '#FF0000' }
+      return: { ...ds, size: 14, weight: 900, color: '#FF0000' },
+      phone: { ...ds, size: 12, mt: 10, align: 'left', ml: 10 }
     };
 
     function renderStyles() {
@@ -521,19 +530,11 @@
       setStyles('c-subs', null, 'subs');
       document.getElementById('c-subs').innerHTML = subs.map(s => `<div>${s.c} ${s.n}</div>`).join('');
 
-      const r = sc.return;
-      const reTitle = document.getElementById('c-re-title');
-      reTitle.style.fontSize = r.size + 'px'; reTitle.style.color = r.color; reTitle.style.fontWeight = r.weight;
-      reTitle.style.textAlign = r.align;
-      reTitle.style.margin = `${r.mt}px ${r.mr}px ${r.mb}px ${r.ml}px`;
-      if (r.w) reTitle.style.width = r.w + 'px';
-      if (r.h) reTitle.style.height = r.h + 'px';
+      setStyles('c-re-title', null, 'return');
+      setStyles('c-address', 'in-address', 'return');
 
-      const addr = document.getElementById('c-address');
-      addr.textContent = val('in-address');
-      addr.style.textAlign = r.align;
-
-      document.getElementById('c-phone').textContent = val('in-phone') || '';
+      setStyles('c-contacts', 'in-phone', 'phone');
+      document.getElementById('cc-phone').textContent = val('in-phone');
     }
 
     function val(id) { return document.getElementById(id) ? document.getElementById(id).value : ''; }
