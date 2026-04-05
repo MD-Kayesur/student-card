@@ -195,7 +195,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0, 0, 0, 0.05);
       z-index: 1;
       pointer-events: none;
     }
@@ -277,7 +277,7 @@
       padding-top: 4px;
       width: 80%;
       display: inline-block;
-      font-size: 8px;
+      font-size: 12px;
       font-weight: 900;
     }
 
@@ -352,6 +352,7 @@
 
       <div class="form-content">
         <div id="form-front">
+          <!-- Groups with Toggle Buttons -->
           <div class="input-group" data-key="collage">
             <div class="group-header"><span class="group-label">Institution Logo</span><button class="style-toggle-btn"
                 onclick="toggleS('collage')"><i class="fas fa-cog"></i> STYLES</button></div>
@@ -477,7 +478,7 @@
     <div class="back-card back-content">
       <div class="c-el back-title" id="c-backtitle" style="text-align:left"></div>
       <div class="c-el subjects-list" id="c-subs"></div>
-      <div style="flex:1"></div>
+      <!-- <div style="flex:1"></div> -->
       <div class="return-section" id="c-return-section">
         <div class="c-el return-title" id="c-re-title" style="color: #02db2d">If Found, Please Return To</div>
         <div class="c-el address-text" id="c-address"></div>
@@ -495,14 +496,14 @@
 
     const ds = { size: 14, weight: 600, color: '#ffffff', align: 'center', mt: 0, mb: 0, ml: 0, mr: 0, w: 0, h: 0, invert: 0, mix: 'normal' };
     let sc = {
-      collage: { ...ds, size: 40, invert: 1, mt: 5, mix: 'screen' },
+      collage: { ...ds, size: 40, invert: 0, mt: 5, mix: 'normal' },
       'collage-name': { ...ds, size: 16, weight: 800, mt: 5 },
       name: { ...ds, size: 16, weight: 800, mt: 10 },
       roll: { ...ds, size: 12, align: 'left', ml: 20, mt: 8 },
       session: { ...ds, size: 12, align: 'left', ml: 20 },
       dept: { ...ds, size: 11, weight: 900, color: '#ffffff' },
       photo: { ...ds, size: 180, border: 4, color: '#ffffff', radius: 10 },
-      sign: { ...ds, size: 30, mb: 20, invert: 1, mix: 'screen' },
+      sign: { ...ds, size: 30, mb: 20, invert: 0, mix: 'normal' },
       backtitle: { ...ds, size: 20, weight: 800, color: '#ffffff', mt: 5 },
       subs: { ...ds, size: 11, align: 'left', mt: 15, ml: 5, weight: 800 },
       return: { ...ds, size: 13, weight: 900, color: '#ffffff' },
@@ -556,8 +557,8 @@
         let html = `<div class="style-item"><label>Size</label><input type="number" data-key="${key}" data-prop="size" value="${conf.size}"></div><div class="style-item"><label>Weight</label><input type="number" data-key="${key}" data-prop="weight" value="${conf.weight || 600}"></div><div class="style-item"><label>Color</label><input type="color" data-key="${key}" data-prop="color" value="${conf.color || '#000000'}"></div><div class="style-item"><label>Align</label><select data-key="${key}" data-prop="align">${['left', 'center', 'right'].map(o => `<option value="${o}" ${conf.align === o ? 'selected' : ''}>${o.toUpperCase()}</option>`).join('')}</select></div><div class="style-item"><label>Width</label><input type="number" data-key="${key}" data-prop="w" value="${conf.w}"></div><div class="style-item"><label>Height</label><input type="number" data-key="${key}" data-prop="h" value="${conf.h}"></div><div class="style-item"><label>Top</label><input type="number" data-key="${key}" data-prop="mt" value="${conf.mt}"></div><div class="style-item"><label>Bot</label><input type="number" data-key="${key}" data-prop="mb" value="${conf.mb}"></div><div class="style-item"><label>Left</label><input type="number" data-key="${key}" data-prop="ml" value="${conf.ml}"></div><div class="style-item"><label>Right</label><input type="number" data-key="${key}" data-prop="mr" value="${conf.mr}"></div>`;
         if (key === 'photo') html += `<div class="style-item"><label>Border</label><input type="number" data-key="${key}" data-prop="border" value="${conf.border}"></div><div class="style-item"><label>Radius</label><input type="number" data-key="${key}" data-prop="radius" value="${conf.radius}"></div>`;
         if (key === 'sign' || key === 'collage') {
-          html += `<div class="style-item"><label>Ink Color</label><select data-key="${key}" data-prop="invert"><option value="0" ${conf.invert == 0 ? 'selected' : ''}>ORIGINAL</option><option value="1" ${conf.invert == 1 ? 'selected' : ''}>WHITE INK</option></select></div>`;
-          html += `<div class="style-item"><label>Bg Remove</label><select data-key="${key}" data-prop="mix"><option value="normal" ${conf.mix == 'normal' ? 'selected' : ''}>NO</option><option value="screen" ${conf.mix == 'screen' ? 'selected' : ''}>YES (Hide Dark)</option><option value="multiply" ${conf.mix == 'multiply' ? 'selected' : ''}>YES (Hide White)</option></select></div>`;
+          html += `<div class="style-item"><label>Image Style</label><select data-key="${key}" data-prop="invert"><option value="0" ${conf.invert == 0 ? 'selected' : ''}>COLORFUL (Original)</option><option value="1" ${conf.invert == 1 ? 'selected' : ''}>NEGATIVE (White Ink)</option></select></div>`;
+          html += `<div class="style-item"><label>Transparency Fix</label><select data-key="${key}" data-prop="mix"><option value="normal" ${conf.mix == 'normal' ? 'selected' : ''}>NORMAL</option><option value="screen" ${conf.mix == 'screen' ? 'selected' : ''}>SCREEN (Remove Dark)</option><option value="multiply" ${conf.mix == 'multiply' ? 'selected' : ''}>MULTIPLY (Remove White)</option></select></div>`;
         }
         container.innerHTML = html;
       });
